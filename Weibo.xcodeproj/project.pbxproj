@@ -10,9 +10,7 @@
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
 		683B837B2455179800C62578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837A2455179800C62578 /* SceneDelegate.swift */; };
 		683B837D2455179800C62578 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837C2455179800C62578 /* ViewController.swift */; };
-		683B83802455179800C62578 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683B837E2455179800C62578 /* Main.storyboard */; };
 		683B83822455179900C62578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683B83812455179900C62578 /* Assets.xcassets */; };
-		683B83852455179900C62578 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683B83832455179900C62578 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,9 +18,7 @@
 		683B83782455179800C62578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		683B837A2455179800C62578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		683B837C2455179800C62578 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		683B837F2455179800C62578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		683B83812455179900C62578 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		683B83842455179900C62578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		683B83862455179900C62578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,9 +55,7 @@
 				683B83782455179800C62578 /* AppDelegate.swift */,
 				683B837A2455179800C62578 /* SceneDelegate.swift */,
 				683B837C2455179800C62578 /* ViewController.swift */,
-				683B837E2455179800C62578 /* Main.storyboard */,
 				683B83812455179900C62578 /* Assets.xcassets */,
-				683B83832455179900C62578 /* LaunchScreen.storyboard */,
 				683B83862455179900C62578 /* Info.plist */,
 			);
 			path = Weibo;
@@ -125,9 +119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683B83852455179900C62578 /* LaunchScreen.storyboard in Resources */,
 				683B83822455179900C62578 /* Assets.xcassets in Resources */,
-				683B83802455179800C62578 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,25 +137,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		683B837E2455179800C62578 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				683B837F2455179800C62578 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		683B83832455179900C62578 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				683B83842455179900C62578 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		683B83872455179900C62578 /* Debug */ = {
@@ -286,6 +259,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Weibo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -293,7 +267,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bughh.Weibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -303,6 +277,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Weibo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,7 +285,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bughh.Weibo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
