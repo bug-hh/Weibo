@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		660166552455B00D0045779B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 660166542455B00D0045779B /* LaunchScreen.storyboard */; };
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
 		683B837B2455179800C62578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837A2455179800C62578 /* SceneDelegate.swift */; };
 		683B837D2455179800C62578 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837C2455179800C62578 /* ViewController.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		660166542455B00D0045779B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		683B83752455179800C62578 /* Weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		683B83782455179800C62578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		683B837A2455179800C62578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				683B837C2455179800C62578 /* ViewController.swift */,
 				683B83812455179900C62578 /* Assets.xcassets */,
 				683B83862455179900C62578 /* Info.plist */,
+				660166542455B00D0045779B /* LaunchScreen.storyboard */,
 			);
 			path = Weibo;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				683B83822455179900C62578 /* Assets.xcassets in Resources */,
+				660166552455B00D0045779B /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
