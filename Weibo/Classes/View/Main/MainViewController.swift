@@ -12,21 +12,21 @@ class MainViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // 添加控制器，并不会添加 tabbar 中的按钮，因为控件时懒加载的，所有控件都是延迟创建的
         addChildViewControllers()
+//        print(tabBar.subviews)
+        setUpComposedButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // 会创建 tabbar 中所有控制器对应的按钮
+        super.viewWillAppear(animated)
+        // 将撰写的按钮放在最前面
+        tabBar.bringSubviewToFront(composedButton)
+    }
     //  MARK: - 懒加载控件
-    private lazy var composedButton: UIButton = {
-        let button: UIButton = UIButton()
-        button.setImage(UIImage(named: "tabbar_compose_icon_add"), for: .normal)
-        button.setImage(UIImage(named: "tabbar_compose_icon_add_highlighted"), for: .highlighted)
-        button.setBackgroundImage(UIImage(named: "tabbar_compose_button"), for: .normal)
-        button.setBackgroundImage(UIImage(named: "tabbar_compose_button_highlighted"), for: .highlighted)
-        return button
-    }()
-
+    private lazy var composedButton: UIButton = UIButton(imageName: "tabbar_compose_icon_add", backgroundImageName: "tabbar_compose_button")
 }
 
 
@@ -34,17 +34,25 @@ class MainViewController: UITabBarController {
 extension MainViewController {
     
     private func setUpComposedButton() {
+        // 1、添加按钮
+        tabBar.addSubview(composedButton)
+        // 2、调整按钮的位置
+        let count = children.count
+        // 算出每个底部按钮的宽度
+        let w = tabBar.bounds.width / CGFloat(count)
+        let h = tabBar.bounds.height
         
-        
-        
+        composedButton.frame = CGRect(x: 2 * w, y: 0, width: w, height: h)
+        print(composedButton.frame)
     }
+    
     private func addChildViewControllers() {
         // 设置 tintColor - 图片渲染颜色
         // 性能提升技巧 - 如果能用颜色解决，就不建议使用图片
         tabBar.tintColor = UIColor.orange
         addChildViewController(vc: HomeTableViewController(), title: "首页", imageName: "tabbar_home")
         addChildViewController(vc: MessageTableViewController(), title: "消息", imageName: "tabbar_message_center")
-        addChildViewController(vc: UIViewController(), title: "", imageName: "")
+        addChild(UIViewController())
         addChildViewController(vc: DiscoveryTableViewController(), title: "发现", imageName: "tabbar_discover")
         addChildViewController(vc: ProfileTableViewController(), title: "我的", imageName: "tabbar_profile")
     }

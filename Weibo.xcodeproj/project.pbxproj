@@ -16,6 +16,7 @@
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
 		683B837B2455179800C62578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837A2455179800C62578 /* SceneDelegate.swift */; };
 		683B83822455179900C62578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683B83812455179900C62578 /* Assets.xcassets */; };
+		683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B839024565BFB00C62578 /* UIButton+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		683B837A2455179800C62578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		683B83812455179900C62578 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		683B83862455179900C62578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		683B839024565BFB00C62578 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		660166582455BCB40045779B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				683B838F24565BE600C62578 /* extension */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -156,6 +159,14 @@
 			path = Weibo;
 			sourceTree = "<group>";
 		};
+		683B838F24565BE600C62578 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				683B839024565BFB00C62578 /* UIButton+Extension.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -231,6 +242,7 @@
 				683B83792455179800C62578 /* AppDelegate.swift in Sources */,
 				660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */,
 				660166692455BE450045779B /* HomeTableViewController.swift in Sources */,
+				683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */,
 				660166632455BDFB0045779B /* ProfileTableViewController.swift in Sources */,
 				683B837B2455179800C62578 /* SceneDelegate.swift in Sources */,
 			);
