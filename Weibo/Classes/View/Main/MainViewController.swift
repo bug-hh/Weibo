@@ -19,6 +19,14 @@ class MainViewController: UITabBarController {
         setUpComposedButton()
     }
     
+    /*
+     响应「按钮点击事件」本质上还是由 oc 发送消息事件给某个方法，所以在前面加上 @objc 的标记，代表这个函数会被 oc 调用
+     如果不加 @objc，只加了 private，那么当点击按钮后，由于这个方法是私有的，那么会造成消息循环找不到对应的方法，而崩溃
+     */
+    @objc private func composedButtonClicked() {
+        print("点击")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         // 会创建 tabbar 中所有控制器对应的按钮
         super.viewWillAppear(animated)
@@ -43,6 +51,7 @@ extension MainViewController {
         let h = tabBar.bounds.height
         
         composedButton.frame = CGRect(x: 2 * w, y: 0, width: w, height: h)
+        composedButton.addTarget(self, action: #selector(self.composedButtonClicked), for: .touchUpInside)
         print(composedButton.frame)
     }
     
