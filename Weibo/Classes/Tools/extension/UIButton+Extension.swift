@@ -19,6 +19,13 @@ extension UIButton {
         // 根据背景图片自动调整大小
         sizeToFit()
     }
+    
+    convenience init(imageName: String, title: String, color: UIColor) {
+        self.init()
+        setBackgroundImage(UIImage(named: imageName), for: .normal)
+        setTitle(title, for: .normal)
+        setTitleColor(color, for: .normal)
+    }
 }
 
 

@@ -19,6 +19,8 @@
 		683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B839024565BFB00C62578 /* UIButton+Extension.swift */; };
 		684F91912457ADA3001CA1B9 /* VisitorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684F91902457ADA3001CA1B9 /* VisitorTableViewController.swift */; };
 		684F91932457AE3D001CA1B9 /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684F91922457AE3D001CA1B9 /* VisitorView.swift */; };
+		684F91952459B495001CA1B9 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684F91942459B495001CA1B9 /* UIImageView+Extension.swift */; };
+		684F91972459B6F6001CA1B9 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684F91962459B6F6001CA1B9 /* UILabel+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		683B839024565BFB00C62578 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		684F91902457ADA3001CA1B9 /* VisitorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorTableViewController.swift; sourceTree = "<group>"; };
 		684F91922457AE3D001CA1B9 /* VisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
+		684F91942459B495001CA1B9 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		684F91962459B6F6001CA1B9 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				683B839024565BFB00C62578 /* UIButton+Extension.swift */,
+				684F91942459B495001CA1B9 /* UIImageView+Extension.swift */,
+				684F91962459B6F6001CA1B9 /* UILabel+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -250,6 +256,8 @@
 				660166692455BE450045779B /* HomeTableViewController.swift in Sources */,
 				683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */,
 				684F91912457ADA3001CA1B9 /* VisitorTableViewController.swift in Sources */,
+				684F91952459B495001CA1B9 /* UIImageView+Extension.swift in Sources */,
+				684F91972459B6F6001CA1B9 /* UILabel+Extension.swift in Sources */,
 				684F91932457AE3D001CA1B9 /* VisitorView.swift in Sources */,
 				660166632455BDFB0045779B /* ProfileTableViewController.swift in Sources */,
 				683B837B2455179800C62578 /* SceneDelegate.swift in Sources */,
