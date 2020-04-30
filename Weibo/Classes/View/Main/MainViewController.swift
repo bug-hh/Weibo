@@ -56,9 +56,8 @@ extension MainViewController {
     }
     
     private func addChildViewControllers() {
-        // 设置 tintColor - 图片渲染颜色
+        // 设置 tintColor - 图片渲染颜色, 如果在 AppDelegate 里设置了全局渲染，那么这里就不用渲染了
         // 性能提升技巧 - 如果能用颜色解决，就不建议使用图片
-        tabBar.tintColor = UIColor.orange
         addChildViewController(vc: HomeTableViewController(), title: "首页", imageName: "tabbar_home")
         addChildViewController(vc: MessageTableViewController(), title: "消息", imageName: "tabbar_message_center")
         addChild(UIViewController())
