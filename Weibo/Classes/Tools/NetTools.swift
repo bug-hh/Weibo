@@ -34,6 +34,19 @@ class NetTools: AFHTTPSessionManager {
 
 }
 
+// MARK: - 获取微博用户信息方法
+extension NetTools {
+    func loadUserInfo(access_token: String, uid: String?, finish: @escaping HHRequestCallBack) {
+        let url = "https://api.weibo.com/2/users/show.json"
+        let parameters = [
+            "access_token": access_token,
+            "uid": uid
+        ]
+        request(method: .GET, url: url, parameters: parameters as [String : Any], finish: finish)
+    }
+    
+}
+
 // MARK: - OAuth 相关方法
 extension NetTools {
     /// OAuth 授权 URL
@@ -53,6 +66,13 @@ extension NetTools {
             "redirect_uri": "https://bug-hh.github.io/bughh.github.io/"
         ]
         request(method: .POST, url: url, parameters: parameters, finish: finish)
+        
+//        post(url, parameters: parameters, headers: nil, progress: nil, success: { (_, result) in
+//            let json = result as? [String: Any]
+//            print(json!)
+//            let ua = UserAccount(dict: json!)
+//            print(ua.access_token)
+//        }, failure: nil)
     }
     
     

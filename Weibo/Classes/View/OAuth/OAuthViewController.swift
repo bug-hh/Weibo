@@ -34,7 +34,6 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
         navigationItem.title = "登录新浪微博"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "关闭", style: .plain, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "自动填充", style: .plain, target: self, action: #selector(autoFill))
-        
     }
 
 }
@@ -68,9 +67,33 @@ extension OAuthViewController {
                 print(err)
                 return
             }
-            print("accessToken: \(result ?? "nil")")
+            
+            // result 是 Any? 类型，所以一定要使用 as? 或者 as!
+            let userAccount = UserAccount(dict: result as! [String: Any])
+            // 在闭包里，调用实例方法是，一定要加上 self
+            self.loadUserInfo(userAccount: userAccount)
         }
         decisionHandler(.allow)
+    }
+    
+    private func loadUserInfo(userAccount: UserAccount) {
+        NetTools.sharedTools.loadUserInfo(access_token: userAccount.access_token!, uid: userAccount.uid!) { (result, error) in
+            if error != nil {
+                print("加载用户信息错误")
+                return
+            }
+            
+            // 如果使用 if/let 或 guard/let 通透使用 as?   [String: Any] 可以换成 NSDictionary
+            guard let dict = result as? [String: Any] else {
+                return
+            }
+            
+            userAccount.screenName = dict["screen_name"] as? String
+            userAccount.avatarLarge = dict["avatar_large"] as? String
+            userAccount.saveUserAccount()
+            print(userAccount)
+        }
+        
     }
     
 }
