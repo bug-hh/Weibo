@@ -14,7 +14,7 @@ class VisitorTableViewController: UITableViewController, VisitorDelegate {
             提问：应用程序里有几个 visitview？有四个，每个控制器各自拥有自己的 visitview
             提问：访客视图如果用懒加载会怎样？如果使用懒加载，访客视图始终会被创建出来
      */
-    var userLogin = false
+    var userLogin = UserAccountViewModel.sharedViewModel.userLogin
     var visitView: VisitorView?
     
     override func viewDidLoad() {

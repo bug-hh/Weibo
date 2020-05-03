@@ -31,17 +31,25 @@ class NetTools: AFHTTPSessionManager {
         return tools
     }()
 
+    private var tokenDict:[String: Any]? {
+        if let token = UserAccountViewModel.sharedViewModel.accessToken {
+            return ["access_token": token]
+        }
+        return nil
+    }
 
 }
 
 // MARK: - 获取微博用户信息方法
 extension NetTools {
-    func loadUserInfo(access_token: String, uid: String?, finish: @escaping HHRequestCallBack) {
+    func loadUserInfo(uid: String?, finish: @escaping HHRequestCallBack) {
+        // 获取 token 字典
+        guard var parameters = tokenDict else {
+            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
+            return
+        }
         let url = "https://api.weibo.com/2/users/show.json"
-        let parameters = [
-            "access_token": access_token,
-            "uid": uid
-        ]
+        parameters["uid"] = uid
         request(method: .GET, url: url, parameters: parameters as [String : Any], finish: finish)
     }
     

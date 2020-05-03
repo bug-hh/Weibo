@@ -61,39 +61,17 @@ extension OAuthViewController {
         print(webView.url?.query ?? "nil")
         print(code)
         
-        // 根据授权码，获取 accessToken
-        NetTools.sharedTools.accessToken(code: String(code)) { (result, error) in
-            if let err = error {
-                print(err)
-                return
+        // 根据授权码，获取 accessToken, 这是一个尾随闭包
+        UserAccountViewModel.sharedViewModel.loadAccessToken(code: String(code)) { (isSuccessed: Bool) in
+            if isSuccessed {
+                print("获取 accessToken 成功")
+            } else {
+                print(code)
+                print("获取 accessToken 失败")
             }
-            
-            // result 是 Any? 类型，所以一定要使用 as? 或者 as!
-            let userAccount = UserAccount(dict: result as! [String: Any])
-            // 在闭包里，调用实例方法是，一定要加上 self
-            self.loadUserInfo(userAccount: userAccount)
         }
+
         decisionHandler(.allow)
-    }
-    
-    private func loadUserInfo(userAccount: UserAccount) {
-        NetTools.sharedTools.loadUserInfo(access_token: userAccount.access_token!, uid: userAccount.uid!) { (result, error) in
-            if error != nil {
-                print("加载用户信息错误")
-                return
-            }
-            
-            // 如果使用 if/let 或 guard/let 通透使用 as?   [String: Any] 可以换成 NSDictionary
-            guard let dict = result as? [String: Any] else {
-                return
-            }
-            
-            userAccount.screenName = dict["screen_name"] as? String
-            userAccount.avatarLarge = dict["avatar_large"] as? String
-            userAccount.saveUserAccount()
-            print(userAccount)
-        }
-        
     }
     
 }

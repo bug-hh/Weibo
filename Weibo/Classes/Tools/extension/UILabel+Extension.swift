@@ -17,4 +17,9 @@ extension UILabel {
         self.numberOfLines = 0
         self.textAlignment = .center
     }
+    
+    convenience init(text: String, fontSize: CGFloat = 14, textColor: UIColor = .darkGray) {
+        self.init(text: text, textColor: textColor)
+        self.font = UIFont.systemFont(ofSize: fontSize)
+    }
 }

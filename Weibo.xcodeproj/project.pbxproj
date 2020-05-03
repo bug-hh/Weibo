@@ -14,6 +14,7 @@
 		660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166642455BE1C0045779B /* MessageTableViewController.swift */; };
 		660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166662455BE340045779B /* DiscoveryTableViewController.swift */; };
 		660166692455BE450045779B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166682455BE450045779B /* HomeTableViewController.swift */; };
+		6813E036245EB5A800D19575 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813E035245EB5A800D19575 /* WelcomeViewController.swift */; };
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
 		683B837B2455179800C62578 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B837A2455179800C62578 /* SceneDelegate.swift */; };
 		683B83822455179900C62578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683B83812455179900C62578 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		68860188245BC11400DB6D92 /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68860187245BC11400DB6D92 /* OAuthViewController.swift */; };
 		6886018A245D1AE200DB6D92 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68860189245D1AE200DB6D92 /* UserAccount.swift */; };
 		6886018C245D8E8500DB6D92 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886018B245D8E8500DB6D92 /* UserAccountViewModel.swift */; };
+		6886018F245E85CF00DB6D92 /* NewFeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886018E245E85CF00DB6D92 /* NewFeatureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,7 @@
 		660166642455BE1C0045779B /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		660166662455BE340045779B /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		660166682455BE450045779B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		6813E035245EB5A800D19575 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		683B83752455179800C62578 /* Weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		683B83782455179800C62578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		683B837A2455179800C62578 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		68860187245BC11400DB6D92 /* OAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthViewController.swift; sourceTree = "<group>"; };
 		68860189245D1AE200DB6D92 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAccount.swift; path = Weibo/Classes/View/OAuth/UserAccount.swift; sourceTree = SOURCE_ROOT; };
 		6886018B245D8E8500DB6D92 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAccountViewModel.swift; path = Weibo/Classes/View/OAuth/UserAccountViewModel.swift; sourceTree = SOURCE_ROOT; };
+		6886018E245E85CF00DB6D92 /* NewFeatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureViewController.swift; sourceTree = "<group>"; };
 		692326F807E5166FF013813B /* Pods-Weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weibo.debug.xcconfig"; path = "Target Support Files/Pods-Weibo/Pods-Weibo.debug.xcconfig"; sourceTree = "<group>"; };
 		A989FFC71F91B5D4307A66E2 /* Pods_Weibo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weibo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,9 +154,9 @@
 		6601665F2455BCB40045779B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				68860190245E86FD00DB6D92 /* Visitor */,
+				6886018D245E859C00DB6D92 /* NewFeature */,
 				660166602455BD7C0045779B /* MainViewController.swift */,
-				684F91902457ADA3001CA1B9 /* VisitorTableViewController.swift */,
-				684F91922457AE3D001CA1B9 /* VisitorView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -204,6 +208,24 @@
 				68860187245BC11400DB6D92 /* OAuthViewController.swift */,
 			);
 			path = OAuth;
+			sourceTree = "<group>";
+		};
+		6886018D245E859C00DB6D92 /* NewFeature */ = {
+			isa = PBXGroup;
+			children = (
+				6886018E245E85CF00DB6D92 /* NewFeatureViewController.swift */,
+				6813E035245EB5A800D19575 /* WelcomeViewController.swift */,
+			);
+			path = NewFeature;
+			sourceTree = "<group>";
+		};
+		68860190245E86FD00DB6D92 /* Visitor */ = {
+			isa = PBXGroup;
+			children = (
+				684F91922457AE3D001CA1B9 /* VisitorView.swift */,
+				684F91902457ADA3001CA1B9 /* VisitorTableViewController.swift */,
+			);
+			path = Visitor;
 			sourceTree = "<group>";
 		};
 		694749624C0197EC1968C856 /* Pods */ = {
@@ -341,10 +363,12 @@
 				660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */,
 				68860185245BC04500DB6D92 /* NetTools.swift in Sources */,
 				660166612455BD7C0045779B /* MainViewController.swift in Sources */,
+				6886018F245E85CF00DB6D92 /* NewFeatureViewController.swift in Sources */,
 				683B83792455179800C62578 /* AppDelegate.swift in Sources */,
 				660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */,
 				660166692455BE450045779B /* HomeTableViewController.swift in Sources */,
 				683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */,
+				6813E036245EB5A800D19575 /* WelcomeViewController.swift in Sources */,
 				684F91912457ADA3001CA1B9 /* VisitorTableViewController.swift in Sources */,
 				684F91952459B495001CA1B9 /* UIImageView+Extension.swift in Sources */,
 				684F91972459B6F6001CA1B9 /* UILabel+Extension.swift in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 protocol VisitorDelegate: NSObjectProtocol {
     func register()
@@ -72,7 +72,68 @@ class VisitorView: UIView {
         addSubview(registerButton)
         addSubview(loginButton)
         
-        // 设置自动布局
+        snapkitLayout()
+
+        // 设置背景颜色   - 灰度图  R G B, 在 UI 元素中，大多数都使用灰度图，或者纯色图（安全图）
+        // 237 怎么来的？  通过「数码测色计」得出
+        backgroundColor = UIColor(white: 237 / 255.0, alpha: 1.0)
+        
+        registerButton.addTarget(self, action: #selector(registerButtonClicked), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func registerButtonClicked() {
+        delegate?.register()
+    }
+    
+    @objc func loginButtonClicked() {
+        delegate?.login()
+    }
+    
+    // MARK - 使用 SnapKit 设置自动布局
+    private func snapkitLayout() {
+        iconImageView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY).offset(-60)
+        }
+        
+        homeImageView.snp.makeConstraints { (make) in
+            make.center.equalTo(iconImageView.snp.center)
+        }
+        
+       
+        textLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(iconImageView.snp.centerX)
+            make.top.equalTo(iconImageView.snp.bottom).offset(36)
+            make.width.equalTo(300)
+        }
+
+        registerButton.snp.makeConstraints { (make) in
+            make.left.equalTo(textLabel.snp.left)
+            make.top.equalTo(textLabel.snp.bottom).offset(16)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+        
+        loginButton.snp.makeConstraints { (make) in
+            make.right.equalTo(textLabel.snp.right)
+            make.top.equalTo(textLabel.snp.bottom).offset(16)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+        
+        maskImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left)
+            make.right.equalTo(self.snp.right)
+            make.top.equalTo(self.snp.top)
+            make.bottom.equalTo(registerButton.snp.bottom).offset(-40)
+        }
+        
+    }
+    
+    // MARK - 使用苹果原生方法设置自动布局
+    private func appleNativeLayout() {
+        
         for v in subviews {
             v.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -105,8 +166,8 @@ class VisitorView: UIView {
         addConstraint(NSLayoutConstraint(item: loginButton, attribute: .top, relatedBy: .equal, toItem: textLabel, attribute: .bottom, multiplier: 1.0, constant: 16))
         addConstraint(NSLayoutConstraint(item: loginButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100))
         addConstraint(NSLayoutConstraint(item: loginButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40))
-        
-        
+                
+                
         // 设置遮罩
         /**   VFL: 可视化格式语言
                H    水平方向
@@ -120,21 +181,6 @@ class VisitorView: UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[mask]-(btnHeight)-[regButton]", options: [], metrics: ["btnHeight": -40], views: ["mask": maskImageView, "regButton": registerButton]))
         
-        
-        // 设置背景颜色   - 灰度图  R G B, 在 UI 元素中，大多数都使用灰度图，或者纯色图（安全图）
-        // 237 怎么来的？  通过「数码测色计」得出
-        backgroundColor = UIColor(white: 237 / 255.0, alpha: 1.0)
-        
-        registerButton.addTarget(self, action: #selector(registerButtonClicked), for: .touchUpInside)
-        loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
-    }
-    
-    @objc func registerButtonClicked() {
-        delegate?.register()
-    }
-    
-    @objc func loginButtonClicked() {
-        delegate?.login()
     }
 }
 

@@ -37,14 +37,14 @@ class UserAccount: NSObject, NSCoding {
         return dictionaryWithValues(forKeys: keys).description
     }
     
-    func saveUserAccount() {
-        // 这个路径一定存在，所以，可以强行解包
-        var path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
-        path = (path as NSString).strings(byAppendingPaths: ["account.plist"]).last!
-        // 保存完文件以后，一定要确认一下，文件确实保存了
-        print(path)
-        NSKeyedArchiver.archiveRootObject(self, toFile: path)
-    }
+//    func saveUserAccount() {
+//        // 这个路径一定存在，所以，可以强行解包
+//        var path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+//        path = (path as NSString).strings(byAppendingPaths: ["account.plist"]).last!
+//        // 保存完文件以后，一定要确认一下，文件确实保存了
+////        print(path)
+//        NSKeyedArchiver.archiveRootObject(self, toFile: path)
+//    }
     
     // `required` 没有继承性，所有的对象只能解档出当前的类对象
     required init?(coder: NSCoder) {
