@@ -63,12 +63,18 @@ extension OAuthViewController {
         
         // 根据授权码，获取 accessToken, 这是一个尾随闭包
         UserAccountViewModel.sharedViewModel.loadAccessToken(code: String(code)) { (isSuccessed: Bool) in
-            if isSuccessed {
-                print("获取 accessToken 成功")
-            } else {
-                print(code)
+            if !isSuccessed {
                 print("获取 accessToken 失败")
             }
+            
+            // 这个dismiss 方法不会立刻销毁控制器，所以需要在 completion 回调中，发送通知
+            self.dismiss(animated: false) {
+                // 登录完成以后，同时在销毁 OAuthViewController 以后，才发送通知，将控制器换成 newfeature viewcontroller
+                // 通知中心是同步的，一旦发送通知，会先执行监听方法，结束后，才继续往后执行
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBSwitchRootViewControllerNotification),
+                object: "welcome")
+            }
+            
         }
 
         decisionHandler(.allow)

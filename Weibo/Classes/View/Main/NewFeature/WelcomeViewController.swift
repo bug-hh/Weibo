@@ -39,9 +39,15 @@ class WelcomeViewController: UIViewController {
         UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: [], animations: {
             self.view.layoutIfNeeded()
         }) { (_) in
-            UIView.animate(withDuration: 0.8) {
+            UIView.animate(withDuration: 0.8, animations: {
                 self.welcomeLabel.alpha = 1
+            }) { (_) in
+                // 动画完成以后，发送通知给 AppDelegate，让它切换控制器
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBSwitchRootViewControllerNotification),
+                                                object: nil) // 这个 object 和 AppDelegate 设置监听里的 object 不一样
             }
+            
+            
         }
     }
     
