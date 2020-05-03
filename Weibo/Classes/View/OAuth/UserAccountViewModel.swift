@@ -22,6 +22,11 @@ class UserAccountViewModel {
         return nil
     }
     
+    // 用户头像的 URL
+    var avatarURL: NSURL {
+        return NSURL(string: self.userAccount?.avatarLarge ?? "")!
+    }
+    
     private var accountPath: String {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         return (path as NSString).strings(byAppendingPaths: ["account.plist"]).last!

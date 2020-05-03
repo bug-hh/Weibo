@@ -8,14 +8,17 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class WelcomeViewController: UIViewController {
 
+    // 设置界面，视图的层次结构
     override func loadView() {
         view = backgroundImageView
         setupUI()
     }
     
+    // 视图已经显示，通常可以 动画/键盘处理
     override func viewDidAppear(_ animated: Bool) {
         // multipliy 属性是只读属性，创建以后，不允许修改,因为之后要改位置，所以用 offset 属性替代
         /*
@@ -41,10 +44,14 @@ class WelcomeViewController: UIViewController {
             }
         }
     }
+    
+    // 视图加载完成之后的后续处理，通常用来设置数据
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 异步加载用户头像
+        iconView.sd_setImage(with: UserAccountViewModel.sharedViewModel.avatarURL as URL, placeholderImage: UIImage(named: "avatar_default_big"), options: SDWebImageOptions(rawValue: 0), context: nil)
 
-        // Do any additional setup after loading the view.
     }
     
     private lazy var backgroundImageView: UIImageView = UIImageView(imageName: "ad_background")
