@@ -40,6 +40,21 @@ class NetTools: AFHTTPSessionManager {
 
 }
 
+// MARK: - 获取用户微博数据方法
+extension NetTools {
+    func loadStatus(finish: @escaping HHRequestCallBack) {
+        // 获取 token 字典
+        guard let parameters = tokenDict else {
+            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
+            return
+        }
+        let url = "https://api.weibo.com/2/statuses/home_timeline.json"
+        
+        request(method: .GET, url: url, parameters: parameters, finish: finish)
+        
+    }
+}
+
 // MARK: - 获取微博用户信息方法
 extension NetTools {
     func loadUserInfo(uid: String?, finish: @escaping HHRequestCallBack) {
