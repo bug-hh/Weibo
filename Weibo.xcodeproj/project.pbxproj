@@ -14,6 +14,9 @@
 		660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166642455BE1C0045779B /* MessageTableViewController.swift */; };
 		660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166662455BE340045779B /* DiscoveryTableViewController.swift */; };
 		660166692455BE450045779B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166682455BE450045779B /* HomeTableViewController.swift */; };
+		66989BD52462D96700CC45F6 /* StatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD42462D96700CC45F6 /* StatusListViewModel.swift */; };
+		66989BD72462E65800CC45F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD62462E65800CC45F6 /* User.swift */; };
+		66989BD92462F56300CC45F6 /* StatusWeiboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */; };
 		6813E036245EB5A800D19575 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813E035245EB5A800D19575 /* WelcomeViewController.swift */; };
 		6832C2A2245ED5B7004148F7 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832C2A1245ED5B7004148F7 /* Common.swift */; };
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
@@ -40,6 +43,9 @@
 		660166642455BE1C0045779B /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		660166662455BE340045779B /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		660166682455BE450045779B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		66989BD42462D96700CC45F6 /* StatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewModel.swift; sourceTree = "<group>"; };
+		66989BD62462E65800CC45F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWeiboViewModel.swift; sourceTree = "<group>"; };
 		6813E035245EB5A800D19575 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6832C2A1245ED5B7004148F7 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		683B83752455179800C62578 /* Weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				6886018B245D8E8500DB6D92 /* UserAccountViewModel.swift */,
+				66989BD42462D96700CC45F6 /* StatusListViewModel.swift */,
+				66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 			children = (
 				68860189245D1AE200DB6D92 /* UserAccount.swift */,
 				688879B2246005EF00E289B7 /* Status.swift */,
+				66989BD62462E65800CC45F6 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,10 +384,13 @@
 				660166692455BE450045779B /* HomeTableViewController.swift in Sources */,
 				683B839124565BFB00C62578 /* UIButton+Extension.swift in Sources */,
 				6813E036245EB5A800D19575 /* WelcomeViewController.swift in Sources */,
+				66989BD72462E65800CC45F6 /* User.swift in Sources */,
 				684F91912457ADA3001CA1B9 /* VisitorTableViewController.swift in Sources */,
 				688879B3246005EF00E289B7 /* Status.swift in Sources */,
+				66989BD92462F56300CC45F6 /* StatusWeiboViewModel.swift in Sources */,
 				684F91952459B495001CA1B9 /* UIImageView+Extension.swift in Sources */,
 				684F91972459B6F6001CA1B9 /* UILabel+Extension.swift in Sources */,
+				66989BD52462D96700CC45F6 /* StatusListViewModel.swift in Sources */,
 				684F91932457AE3D001CA1B9 /* VisitorView.swift in Sources */,
 				660166632455BDFB0045779B /* ProfileTableViewController.swift in Sources */,
 				6832C2A2245ED5B7004148F7 /* Common.swift in Sources */,

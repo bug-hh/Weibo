@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 private let StatusCellNormalID = "StatusCellNormalID"
 
 class HomeTableViewController: VisitorTableViewController {
 
+    private lazy var listViewModel: StatusListViewModel = StatusListViewModel()
+    
     private var dataList: [Status]?
     
     override func viewDidLoad() {
@@ -31,39 +34,30 @@ class HomeTableViewController: VisitorTableViewController {
     }
     
     private func loadData() {
-        NetTools.sharedTools.loadStatus { (result, error) in
-            if error != nil {
-                print("出错了")
+        listViewModel.loadStatus { (isSuccessed) in
+            if !isSuccessed {
+                SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
                 return
             }
-            
-            let resultDict = result as? [String: Any?]
-            guard let array = resultDict?["statuses"] as? [[String: Any?]] else {
-                print("数据格式错误")
-                return
-            }
-            
-            var arrayList = [Status]()
-            for dict in array {
-                arrayList.append(Status(dict: dict))
-            }
-            self.dataList = arrayList
-            print(arrayList)
+            // 加载数据
             self.tableView.reloadData()
         }
+
+        
     }
 
 }
 
-
 extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataList?.count ?? 0
+        return listViewModel.statusList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellNormalID, for: indexPath)
-        cell.textLabel?.text = self.dataList![indexPath.row].text
+        let statusViewModel = listViewModel.statusList[indexPath.row]
+        let status = statusViewModel.status
+        cell.textLabel?.text = status.user?.screen_name
         return cell
     }
 }
