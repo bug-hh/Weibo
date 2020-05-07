@@ -30,7 +30,8 @@ class HomeTableViewController: VisitorTableViewController {
     
     private func prepareTableView() {
         // 注册可重用 cell
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: StatusCellNormalID)
+        tableView.register(StatusCell.self, forCellReuseIdentifier: StatusCellNormalID)
+        tableView.rowHeight = 200
     }
     
     private func loadData() {
@@ -54,10 +55,8 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellNormalID, for: indexPath)
-        let statusViewModel = listViewModel.statusList[indexPath.row]
-        let status = statusViewModel.status
-        cell.textLabel?.text = status.user?.screen_name
+        let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellNormalID, for: indexPath) as! StatusCell
+        cell.viewModel = listViewModel.statusList[indexPath.row]
         return cell
     }
 }
