@@ -8,9 +8,6 @@
 
 import UIKit
 
-let StatusCellMargin = 15
-let StatusCellIconWidth = 35
-
 class StatusCellTopView: UIView {
     
     var viewModel: StatusWeiboViewModel? {
@@ -18,6 +15,7 @@ class StatusCellTopView: UIView {
             nameLabel.text = viewModel?.status.user?.screen_name
             iconView.sd_setImage(with: viewModel?.userIconUrl, placeholderImage: viewModel?.defaultIconImage, options: [], context: nil)
             memberIcon.image = viewModel?.userMemberIcon
+            vipIcon.image = viewModel?.userVipIcon
         }
     }
     override init(frame: CGRect) {

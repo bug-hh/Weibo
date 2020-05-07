@@ -22,12 +22,26 @@ class StatusWeiboViewModel: NSObject {
     }
     
     var userMemberIcon: UIImage? {
-        if let rank = status.user?.mbRank, rank >= 0 && rank < 7 {
-            return UIImage(named: "common_icon_membership_level\(status.user?.mbRank ?? 1)")
+        if let rank = status.user?.mbrank, rank >= 0 && rank < 7 {
+            return UIImage(named: "common_icon_membership_level\(status.user?.mbrank ?? 1)")
         }
         return nil
     }
     
+    //  -1 未认证用户  0 认证用户  2，3，5 企业认证  220 达人
+    var userVipIcon: UIImage? {
+        switch status.user?.verified_type ?? -1 {
+        case 0:
+            return UIImage(named: "avatar_vip")
+        case 2,3,5:
+            return UIImage(named: "avatar_enterprise_vip")
+        case 220:  //
+            return UIImage(named: "avatar_grassroot")
+        default:
+            return nil
+        }
+        
+    }
     init(status: Status) {
         self.status = status
     }

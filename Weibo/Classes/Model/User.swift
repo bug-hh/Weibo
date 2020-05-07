@@ -13,7 +13,7 @@ class User: NSObject {
     @objc var screen_name: String?
     @objc var profile_image_url: String?
     @objc var verified_type: Int = 0
-    @objc var mbRank: Int = 0
+    @objc var mbrank: Int = 0
     
     init(dict: [String: Any?]) {
         super.init()
@@ -25,7 +25,7 @@ class User: NSObject {
     }
     
     override var description: String {
-        let keys = ["id", "screen_name", "profile_image_url", "verified_type"]
+        let keys = ["id", "screen_name", "profile_image_url", "verified_type", "mbrank"]
         return dictionaryWithValues(forKeys: keys).description
     }
 }
