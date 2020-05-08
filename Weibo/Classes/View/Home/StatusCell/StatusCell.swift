@@ -55,7 +55,7 @@ extension StatusCell {
         statusLabel.snp.makeConstraints { (make) in
             make.left.equalTo(contentView.snp.left).offset(StatusCellMargin)
             make.top.equalTo(statusTopView.snp.bottom).offset(StatusCellMargin)
-//            make.right.equalTo(contentView.snp.right).offset(StatusCellMargin)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-StatusCellMargin)
         }
     }
     
