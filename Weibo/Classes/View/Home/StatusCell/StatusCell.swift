@@ -39,9 +39,11 @@ class StatusCell: UITableViewCell {
 // MARK: - 设置 UI
 extension StatusCell {
     private func setupUI() {
+        
         // 添加控件
         contentView.addSubview(statusTopView)
         contentView.addSubview(statusLabel)
+        contentView.addSubview(statusBottomView)
         
         // 自动布局
         statusTopView.snp.makeConstraints { (make) in
@@ -49,13 +51,23 @@ extension StatusCell {
             make.left.equalTo(contentView.snp.left)
             make.right.equalTo(contentView.snp.right)
             // TODO 修改高度
-            make.height.equalTo(StatusCellMargin + StatusCellIconWidth)
+            make.height.equalTo( 2 * StatusCellMargin + StatusCellIconWidth)
         }
         
         statusLabel.snp.makeConstraints { (make) in
             make.left.equalTo(contentView.snp.left).offset(StatusCellMargin)
             make.top.equalTo(statusTopView.snp.bottom).offset(StatusCellMargin)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-StatusCellMargin)
+            // 没有指定宽度，是因为已经在构造函数里面指定了
+        }
+        
+        statusBottomView.snp.makeConstraints { (make) in
+            make.top.equalTo(statusLabel.snp.bottom).offset(StatusCellMargin)
+            make.left.equalTo(contentView.snp.left)
+            make.right.equalTo(contentView.snp.right)
+            make.height.equalTo(44)
+            
+            // 指定向下的约束，为了给 tableview 自行计算行高用, 之所以设置 tableview 自行计算行高，是因为，微博的内容是不固定的，所以需要根据微博内容，动态调整行高
+            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
     

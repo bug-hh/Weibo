@@ -81,7 +81,7 @@ class NewFeatureViewController: UICollectionViewController {
 
 private class NewFeatureCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = UIImageView()
-    private lazy var startButton: UIButton = UIButton(imageName: "guideStart", title: "", color: .white)
+    private lazy var startButton: UIButton = UIButton(backgroundImageName: "guideStart", title: "", color: .white)
     
     var imageIndex: Int = 0 {
         didSet {

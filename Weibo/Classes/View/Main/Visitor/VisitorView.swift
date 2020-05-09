@@ -60,8 +60,8 @@ class VisitorView: UIView {
     private lazy var maskImageView = UIImageView(imageName: "visitordiscover_feed_mask_smallicon")
     private lazy var homeImageView = UIImageView(imageName: "visitordiscover_feed_image_house")
     private lazy var textLabel: UILabel = UILabel(text: "关注一些人，回这里看看有什么惊喜", textColor: .darkGray)
-    private lazy var registerButton: UIButton = UIButton(imageName: "common_button_white_disable", title: "注册", color: .orange)
-    private lazy var loginButton: UIButton = UIButton(imageName: "common_button_white_disable", title: "登录", color: .darkGray)
+    private lazy var registerButton: UIButton = UIButton(backgroundImageName: "common_button_white_disable", title: "注册", color: .orange)
+    private lazy var loginButton: UIButton = UIButton(backgroundImageName: "common_button_white_disable", title: "登录", color: .darkGray)
     
     private func setupUI() {
         // 添加子控件

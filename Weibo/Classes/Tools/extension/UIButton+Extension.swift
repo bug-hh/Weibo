@@ -20,12 +20,20 @@ extension UIButton {
         sizeToFit()
     }
     
-    convenience init(imageName: String, title: String, color: UIColor) {
+    convenience init(backgroundImageName: String, title: String, color: UIColor) {
         self.init()
-        setBackgroundImage(UIImage(named: imageName), for: .normal)
+        setBackgroundImage(UIImage(named: backgroundImageName), for: .normal)
         setTitle(title, for: .normal)
         setTitleColor(color, for: .normal)
         sizeToFit()
+    }
+    
+    convenience init(foregroundImageName: String, title: String, fontSize: CGFloat = 12) {
+        self.init()
+        setImage(UIImage(named: foregroundImageName), for: .normal)
+        setTitle(title, for: .normal)
+        setTitleColor(.darkGray, for: .normal)
+        titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
     }
 }
 

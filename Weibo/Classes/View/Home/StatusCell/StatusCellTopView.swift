@@ -45,7 +45,12 @@ class StatusCellTopView: UIView {
 
 extension StatusCellTopView {
     private func setupUI() {
+        
+        let sepView = UIView()
+        sepView.backgroundColor = .lightGray
+        
         // 添加控件
+        addSubview(sepView)
         addSubview(iconView)
         addSubview(nameLabel)
         addSubview(memberIcon)
@@ -54,8 +59,15 @@ extension StatusCellTopView {
         addSubview(sourceLabel)
         
         // 设置自动布局
+        sepView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top)
+            make.left.equalTo(self.snp.left)
+            make.right.equalTo(self.snp.right)
+            make.height.equalTo(StatusCellMargin)
+        }
+        
         iconView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(StatusCellMargin)
+            make.top.equalTo(sepView.snp.bottom).offset(StatusCellMargin)
             make.left.equalTo(self.snp.left).offset(StatusCellMargin)
             make.width.equalTo(StatusCellIconWidth)
             make.height.equalTo(StatusCellIconWidth)
