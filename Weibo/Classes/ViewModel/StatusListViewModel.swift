@@ -26,9 +26,9 @@ class StatusListViewModel {
             
             var arrayList = [StatusWeiboViewModel]()
             for dict in array {
-                let s = Status(dict: dict)
-                print("\(s.user?.screen_name)  \(s.text)")
-                arrayList.append(StatusWeiboViewModel(status: Status(dict: dict)))
+                let s = StatusWeiboViewModel(status: Status(dict: dict))
+                print(s)
+                arrayList.append(s)
             }
             
             self.statusList = arrayList + self.statusList

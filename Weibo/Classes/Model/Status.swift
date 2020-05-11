@@ -20,6 +20,8 @@ class Status: NSObject {
     // 用户模型
     @objc var user: User?
     
+    @objc var pic_urls:[[String: String]]?
+    
     init(dict: [String: Any?]) {
         super.init()
         // 如果使用 KVC, 如果 value 是一个字典，那么会将对应属性，直接转换成字典
@@ -40,7 +42,7 @@ class Status: NSObject {
     }
     
     override var description: String {
-        let keys = ["id", "text", "create_at", "source", "user"]
+        let keys = ["id", "text", "create_at", "source", "user", "pic_urls"]
         return dictionaryWithValues(forKeys: keys).description
     }
 

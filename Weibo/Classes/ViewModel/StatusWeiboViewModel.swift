@@ -28,6 +28,8 @@ class StatusWeiboViewModel: NSObject {
         return nil
     }
     
+    var thumbnailUrls: [NSURL]?
+    
     //  -1 未认证用户  0 认证用户  2，3，5 企业认证  220 达人
     var userVipIcon: UIImage? {
         switch status.user?.verified_type ?? -1 {
@@ -44,5 +46,16 @@ class StatusWeiboViewModel: NSObject {
     }
     init(status: Status) {
         self.status = status
+        
+        if let count = status.pic_urls?.count, count > 0 {
+            thumbnailUrls = [NSURL]()
+            for dict in status.pic_urls! {
+                thumbnailUrls?.append(NSURL(string: dict["thumbnail_pic"]!)!)
+            }
+        }
+    }
+    
+    override var description: String {
+        return status.description + "配图数组\(thumbnailUrls ?? [])"
     }
 }

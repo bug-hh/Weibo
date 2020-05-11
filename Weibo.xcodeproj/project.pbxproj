@@ -36,6 +36,7 @@
 		688879B6246381F800E289B7 /* StatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879B5246381F800E289B7 /* StatusCell.swift */; };
 		688879B82463823100E289B7 /* StatusCellTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879B72463823100E289B7 /* StatusCellTopView.swift */; };
 		688879BA2463824A00E289B7 /* StatusCellBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879B92463824A00E289B7 /* StatusCellBottomView.swift */; };
+		688879BC2468C05F00E289B7 /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879BB2468C05F00E289B7 /* StatusPictureView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		688879B5246381F800E289B7 /* StatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCell.swift; sourceTree = "<group>"; };
 		688879B72463823100E289B7 /* StatusCellTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCellTopView.swift; sourceTree = "<group>"; };
 		688879B92463824A00E289B7 /* StatusCellBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCellBottomView.swift; sourceTree = "<group>"; };
+		688879BB2468C05F00E289B7 /* StatusPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
 		692326F807E5166FF013813B /* Pods-Weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weibo.debug.xcconfig"; path = "Target Support Files/Pods-Weibo/Pods-Weibo.debug.xcconfig"; sourceTree = "<group>"; };
 		A989FFC71F91B5D4307A66E2 /* Pods_Weibo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weibo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -256,6 +258,7 @@
 				688879B5246381F800E289B7 /* StatusCell.swift */,
 				688879B72463823100E289B7 /* StatusCellTopView.swift */,
 				688879B92463824A00E289B7 /* StatusCellBottomView.swift */,
+				688879BB2468C05F00E289B7 /* StatusPictureView.swift */,
 			);
 			path = StatusCell;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				688879B82463823100E289B7 /* StatusCellTopView.swift in Sources */,
 				68860185245BC04500DB6D92 /* NetTools.swift in Sources */,
 				660166612455BD7C0045779B /* MainViewController.swift in Sources */,
+				688879BC2468C05F00E289B7 /* StatusPictureView.swift in Sources */,
 				6886018F245E85CF00DB6D92 /* NewFeatureViewController.swift in Sources */,
 				683B83792455179800C62578 /* AppDelegate.swift in Sources */,
 				660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */,
