@@ -13,6 +13,13 @@ import UIKit
 class StatusWeiboViewModel: NSObject {
     var status: Status
     
+    lazy var rowHeight: CGFloat = {
+        // 获取 cell
+        print("计算行高 \(self.status.text ?? "")")
+        let cell = StatusCell(style: .default, reuseIdentifier: StatusCellNormalID)
+        return cell.rowHeight(vm: self)
+    }()
+    
     var userIconUrl: URL? {
         return URL(string: status.user?.profile_image_url ?? "")
     }

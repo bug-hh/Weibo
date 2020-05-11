@@ -37,6 +37,19 @@ class StatusCell: UITableViewCell {
         }
         
     }
+    
+    // 根据给定的 view model 计算行高
+    func rowHeight(vm: StatusWeiboViewModel) -> CGFloat {
+        // 1、记录视图模型，赋值后，会调用上面的 didSet 设置内容以及更新'约束’
+        viewModel = vm
+        // 2、强制更新所有约束 -> 所有控件的 frame 都会被正确计算
+        contentView.layoutIfNeeded()
+        
+        // 3、返回底部视图的最大高度
+        return statusBottomView.frame.maxY
+        
+        
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()

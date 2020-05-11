@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-private let StatusCellNormalID = "StatusCellNormalID"
+let StatusCellNormalID = "StatusCellNormalID"
 
 class HomeTableViewController: VisitorTableViewController {
 
@@ -36,8 +36,7 @@ class HomeTableViewController: VisitorTableViewController {
         tableView.separatorStyle = .none
         
         // 自行计算行高 - 需要一个自上而下的自动布局的控件，指向一个向下的约束
-        tableView.estimatedRowHeight = 200
-        tableView.rowHeight = 300
+        tableView.estimatedRowHeight = 400
     }
     
     private func loadData() {
@@ -64,5 +63,9 @@ extension HomeTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellNormalID, for: indexPath) as! StatusCell
         cell.viewModel = listViewModel.statusList[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return listViewModel.statusList[indexPath.row].rowHeight
     }
 }
