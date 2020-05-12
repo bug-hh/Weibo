@@ -33,6 +33,9 @@ class StatusCell: UITableViewCell {
             pictureView.snp.updateConstraints { (update) in
                 update.height.equalTo(pictureView.bounds.height)
                 update.width.equalTo(pictureView.bounds.width)
+                // 根据配图数量，决定配图视图顶部间距
+                let offset = (viewModel?.thumbnailUrls ?? []).count > 0 ? StatusCellMargin : 0
+                update.top.equalTo(self.statusLabel.snp.bottom).offset(offset)
             }
         }
         
@@ -52,6 +55,8 @@ class StatusCell: UITableViewCell {
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        // 设置单元格选中样式
+        selectionStyle = .none
         setupUI()
     }
     

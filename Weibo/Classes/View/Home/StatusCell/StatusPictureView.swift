@@ -113,7 +113,13 @@ extension StatusPictureView {
 }
 
 private class StatusPictureViewCell: UICollectionViewCell {
-    private lazy var iconView: UIImageView = UIImageView()
+    private lazy var iconView: UIImageView = {
+        var iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        // 当使用上面这种模式时，一定要记得「裁剪图片」
+        iv.clipsToBounds = true
+        return iv
+    }()
     
     var imageUrl: NSURL? {
         didSet {
