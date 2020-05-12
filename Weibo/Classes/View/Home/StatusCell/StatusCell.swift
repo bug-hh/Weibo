@@ -16,11 +16,11 @@ class StatusCell: UITableViewCell {
     // 顶部视图，包含用户头像、微博等级，等等
     private lazy var statusTopView: StatusCellTopView = StatusCellTopView()
     // 微博文字
-    private lazy var statusLabel: UILabel = UILabel(text: "微博正文", fontSize: 15, screenInset: CGFloat(StatusCellMargin))
+    lazy var statusLabel: UILabel = UILabel(text: "微博正文", fontSize: 15, screenInset: CGFloat(StatusCellMargin))
     // 微博图片
-    private lazy var pictureView: StatusPictureView = StatusPictureView()
+    lazy var pictureView: StatusPictureView = StatusPictureView()
     // 底部视图：转发，评论，点赞
-    private lazy var statusBottomView: StatusCellBottomView = StatusCellBottomView()
+    lazy var statusBottomView: StatusCellBottomView = StatusCellBottomView()
     
     var viewModel: StatusWeiboViewModel? {
         didSet {
@@ -34,8 +34,8 @@ class StatusCell: UITableViewCell {
                 update.height.equalTo(pictureView.bounds.height)
                 update.width.equalTo(pictureView.bounds.width)
                 // 根据配图数量，决定配图视图顶部间距
-                let offset = (viewModel?.thumbnailUrls ?? []).count > 0 ? StatusCellMargin : 0
-                update.top.equalTo(self.statusLabel.snp.bottom).offset(offset)
+//                let offset = (viewModel?.thumbnailUrls ?? []).count > 0 ? StatusCellMargin : 0
+//                update.top.equalTo(self.statusLabel.snp.bottom).offset(offset)
             }
         }
         
@@ -69,7 +69,7 @@ class StatusCell: UITableViewCell {
 
 // MARK: - 设置 UI
 extension StatusCell {
-    private func setupUI() {
+    @objc func setupUI() {
         
         // 添加控件
         contentView.addSubview(statusTopView)
@@ -92,12 +92,12 @@ extension StatusCell {
             // 没有指定宽度，是因为已经在构造函数里面指定了
         }
         
-        pictureView.snp.makeConstraints { (make) in
-            make.top.equalTo(statusLabel.snp.bottom).offset(StatusCellMargin)
-            make.left.equalTo(statusLabel.snp.left)
-            make.width.equalTo(300)
-            make.height.equalTo(90)
-        }
+//        pictureView.snp.makeConstraints { (make) in
+//            make.top.equalTo(statusLabel.snp.bottom).offset(StatusCellMargin)
+//            make.left.equalTo(statusLabel.snp.left)
+//            make.width.equalTo(300)
+//            make.height.equalTo(90)
+//        }
         
         statusBottomView.snp.makeConstraints { (make) in
             make.top.equalTo(pictureView.snp.bottom).offset(StatusCellMargin)

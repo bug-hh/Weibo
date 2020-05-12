@@ -43,6 +43,16 @@ class StatusWeiboViewModel: NSObject {
      */
     var thumbnailUrls: [NSURL]?
     
+    var retweetedText: String? {
+        guard let s = status.retweeted_status else {
+            return nil
+        }
+        let text1 = "@" + (s.user?.screen_name ?? "") + ": "
+        let text2 = s.text ?? ""
+        return text1 + text2
+        
+    }
+    
     //  -1 未认证用户  0 认证用户  2，3，5 企业认证  220 达人
     var userVipIcon: UIImage? {
         switch status.user?.verified_type ?? -1 {
