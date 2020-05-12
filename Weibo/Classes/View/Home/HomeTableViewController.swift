@@ -30,7 +30,7 @@ class HomeTableViewController: VisitorTableViewController {
     
     private func prepareTableView() {
         // 注册可重用 cell
-        tableView.register(StatusCell.self, forCellReuseIdentifier: StatusCellNormalID)
+        tableView.register(StatusRetweetedCell.self, forCellReuseIdentifier: StatusRetweetedCellID)
         
         // 取消分割线
         tableView.separatorStyle = .none
@@ -60,7 +60,7 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellNormalID, for: indexPath) as! StatusCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: StatusRetweetedCellID, for: indexPath) as! StatusRetweetedCell
         cell.viewModel = listViewModel.statusList[indexPath.row]
         return cell
     }

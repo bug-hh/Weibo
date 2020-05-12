@@ -16,7 +16,7 @@ class StatusWeiboViewModel: NSObject {
     lazy var rowHeight: CGFloat = {
         // 获取 cell
         print("计算行高 \(self.status.text ?? "")")
-        let cell = StatusCell(style: .default, reuseIdentifier: StatusCellNormalID)
+        let cell = StatusRetweetedCell(style: .default, reuseIdentifier: StatusRetweetedCellID)
         return cell.rowHeight(vm: self)
     }()
     
@@ -35,6 +35,12 @@ class StatusWeiboViewModel: NSObject {
         return nil
     }
     
+    /*
+     缩略图 URL 数组 - 存储型属性
+     如果是原创微博，可以有图，可以没有图
+     如果是转发微博，一定没有图，retweeted_status 中，可以有图，也可以没有图
+     一条微博，最多只有一个 pic_urls 数组
+     */
     var thumbnailUrls: [NSURL]?
     
     //  -1 未认证用户  0 认证用户  2，3，5 企业认证  220 达人
@@ -54,9 +60,9 @@ class StatusWeiboViewModel: NSObject {
     init(status: Status) {
         self.status = status
         
-        if let count = status.pic_urls?.count, count > 0 {
+        if let urls = status.retweeted_status?.pic_urls ?? status.pic_urls {
             thumbnailUrls = [NSURL]()
-            for dict in status.pic_urls! {
+            for dict in urls {
                 thumbnailUrls?.append(NSURL(string: dict["thumbnail_pic"]!)!)
             }
         }

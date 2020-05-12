@@ -14,6 +14,7 @@
 		660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166642455BE1C0045779B /* MessageTableViewController.swift */; };
 		660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166662455BE340045779B /* DiscoveryTableViewController.swift */; };
 		660166692455BE450045779B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166682455BE450045779B /* HomeTableViewController.swift */; };
+		6652717C246AD3D8006B0D9D /* StatusRetweetedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6652717B246AD3D8006B0D9D /* StatusRetweetedCell.swift */; };
 		66989BD52462D96700CC45F6 /* StatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD42462D96700CC45F6 /* StatusListViewModel.swift */; };
 		66989BD72462E65800CC45F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD62462E65800CC45F6 /* User.swift */; };
 		66989BD92462F56300CC45F6 /* StatusWeiboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */; };
@@ -47,6 +48,7 @@
 		660166642455BE1C0045779B /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		660166662455BE340045779B /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		660166682455BE450045779B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		6652717B246AD3D8006B0D9D /* StatusRetweetedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRetweetedCell.swift; sourceTree = "<group>"; };
 		66989BD42462D96700CC45F6 /* StatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewModel.swift; sourceTree = "<group>"; };
 		66989BD62462E65800CC45F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWeiboViewModel.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				688879B72463823100E289B7 /* StatusCellTopView.swift */,
 				688879B92463824A00E289B7 /* StatusCellBottomView.swift */,
 				688879BB2468C05F00E289B7 /* StatusPictureView.swift */,
+				6652717B246AD3D8006B0D9D /* StatusRetweetedCell.swift */,
 			);
 			path = StatusCell;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				688879B82463823100E289B7 /* StatusCellTopView.swift in Sources */,
 				68860185245BC04500DB6D92 /* NetTools.swift in Sources */,
 				660166612455BD7C0045779B /* MainViewController.swift in Sources */,
+				6652717C246AD3D8006B0D9D /* StatusRetweetedCell.swift in Sources */,
 				688879BC2468C05F00E289B7 /* StatusPictureView.swift in Sources */,
 				6886018F245E85CF00DB6D92 /* NewFeatureViewController.swift in Sources */,
 				683B83792455179800C62578 /* AppDelegate.swift in Sources */,
