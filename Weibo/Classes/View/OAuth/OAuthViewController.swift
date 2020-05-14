@@ -60,9 +60,7 @@ extension OAuthViewController {
         // 获取授权码
         let startIndex = query.index(query.startIndex, offsetBy: 5)
         let code = query[startIndex..<query.endIndex]
-        print(webView.url?.host ?? "nil")
-        print(webView.url?.query ?? "nil")
-        print(code)
+
         
         // 根据授权码，获取 accessToken, 这是一个尾随闭包
         UserAccountViewModel.sharedViewModel.loadAccessToken(code: String(code)) { (isSuccessed: Bool) in

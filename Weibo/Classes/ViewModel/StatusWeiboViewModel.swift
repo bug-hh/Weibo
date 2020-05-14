@@ -13,10 +13,21 @@ import UIKit
 class StatusWeiboViewModel: NSObject {
     var status: Status
     
+    var cellID: String {
+        return status.retweeted_status != nil ? StatusRetweetedCellID : StatusCellNormalID
+    }
+    
     lazy var rowHeight: CGFloat = {
         // 获取 cell
-        print("计算行高 \(self.status.text ?? "")")
-        let cell = StatusRetweetedCell(style: .default, reuseIdentifier: StatusRetweetedCellID)
+//        print("计算行高 \(self.status.text ?? "")")
+        var cell: StatusCell
+        
+        if self.status.retweeted_status != nil {
+            cell = StatusRetweetedCell(style: .default, reuseIdentifier: StatusRetweetedCellID)
+        } else {
+            cell = StatusNormalCell(style: .default, reuseIdentifier: StatusCellNormalID)
+        }
+        
         return cell.rowHeight(vm: self)
     }()
     

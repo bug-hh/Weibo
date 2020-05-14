@@ -58,7 +58,6 @@ class UserAccountViewModel {
         NetTools.sharedTools.accessToken(code: String(code)) { (result, error) in
             if error != nil {
                 finish(false)
-                print("1111111")
                 return
             }
             
@@ -67,7 +66,6 @@ class UserAccountViewModel {
             // 在闭包里，调用实例方法是，一定要加上 self
             self.loadUserInfo(userAccount: self.userAccount!, finish: finish)
         }
-        print("NetTools accessToken")
     }
     
     private func loadUserInfo(userAccount: UserAccount, finish: @escaping (_ isSuccessed: Bool) -> ()) {
@@ -85,7 +83,6 @@ class UserAccountViewModel {
             
             self.userAccount?.screenName = dict["screen_name"] as? String
             self.userAccount?.avatarLarge = dict["avatar_large"] as? String
-            print(self.accountPath)
             NSKeyedArchiver.archiveRootObject(self.userAccount!, toFile: self.accountPath)
             finish(true)
         }

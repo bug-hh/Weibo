@@ -8,7 +8,7 @@
 
 import UIKit
 
-let StatusRetweetedCellID = "StatusRetweetedCellID"
+//let StatusRetweetedCellID = "StatusRetweetedCellID"
 
 class StatusRetweetedCell: StatusCell {
     

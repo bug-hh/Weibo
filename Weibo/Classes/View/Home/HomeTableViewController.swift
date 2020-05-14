@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 
 let StatusCellNormalID = "StatusCellNormalID"
+let StatusRetweetedCellID = "StatusRetweetedCellID"
 
 class HomeTableViewController: VisitorTableViewController {
 
@@ -31,6 +32,7 @@ class HomeTableViewController: VisitorTableViewController {
     private func prepareTableView() {
         // 注册可重用 cell
         tableView.register(StatusRetweetedCell.self, forCellReuseIdentifier: StatusRetweetedCellID)
+        tableView.register(StatusNormalCell.self, forCellReuseIdentifier: StatusCellNormalID)
         
         // 取消分割线
         tableView.separatorStyle = .none
@@ -54,14 +56,16 @@ class HomeTableViewController: VisitorTableViewController {
 
 }
 
+// MARK: - 数据源方法
 extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listViewModel.statusList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: StatusRetweetedCellID, for: indexPath) as! StatusRetweetedCell
-        cell.viewModel = listViewModel.statusList[indexPath.row]
+        let vm = listViewModel.statusList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
+        cell.viewModel = vm
         return cell
     }
     
