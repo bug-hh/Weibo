@@ -92,7 +92,22 @@ extension StatusPictureView {
         // 一张图片
         if count == 1 {
             // 先临时指定
-            let size = CGSize(width: 150, height: 90)
+            var size = CGSize(width: 150, height: 90)
+            // 利用 SDWebImage 拿到磁盘缓存图像
+            if let key = viewModel?.thumbnailUrls?.first?.absoluteString,
+                let image = SDImageCache.shared.imageFromDiskCache(forKey: key) {
+                size = image.size
+            }
+            
+            // 过窄处理，针对长图
+            size.width = size.width < 40 ? 40 : size.width
+            // 过宽处理，对于过宽的图片，同样，图片的高度也肯定是超的，所以需要等比例缩放
+            if size.width > 300 {
+                let w: CGFloat = 300
+                let h = size.height * w / size.width
+                size = CGSize(width: w, height: h)
+            }
+            
             layout.itemSize = size
             return size
         }

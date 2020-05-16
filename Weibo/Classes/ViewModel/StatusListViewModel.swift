@@ -30,14 +30,14 @@ class StatusListViewModel {
                 let s = StatusWeiboViewModel(status: Status(dict: dict))
                 arrayList.append(s)
             }
-            self.cacheSinglePicture(dataList: arrayList)
             self.statusList = arrayList + self.statusList
-            finish(true)
+            
+            self.cacheSinglePicture(dataList: arrayList, finish: finish)
         }
     }
     
     // 缓存单张图片
-    private func cacheSinglePicture(dataList: [StatusWeiboViewModel]) {
+    private func cacheSinglePicture(dataList: [StatusWeiboViewModel], finish: @escaping (_ isSuccessed: Bool) -> ()) {
         // 创建 group
         let group = DispatchGroup()
         // 缓存数据的长度
@@ -72,6 +72,7 @@ class StatusListViewModel {
         group.notify(queue: DispatchQueue.main) {
             // 这个缓存的长度，包含本地缓存图像
             print("缓存完成 \(dataLength)")
+            finish(true)
         }
         
     }

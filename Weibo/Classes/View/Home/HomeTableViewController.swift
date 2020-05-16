@@ -39,10 +39,18 @@ class HomeTableViewController: VisitorTableViewController {
         
         // 自行计算行高 - 需要一个自上而下的自动布局的控件，指向一个向下的约束
         tableView.estimatedRowHeight = 400
+        
+        // 下拉刷新控件，默认没有，高度 60
+        refreshControl = WeiboRefreshControl()
+        // 添加监听方法
+        refreshControl?.addTarget(self, action: #selector(loadData), for: .valueChanged)
     }
     
-    private func loadData() {
+    @objc private func loadData() {
+        refreshControl?.beginRefreshing()
         listViewModel.loadStatus { (isSuccessed) in
+            // 关闭刷新控件
+            self.refreshControl?.endRefreshing()
             if !isSuccessed {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
                 return
