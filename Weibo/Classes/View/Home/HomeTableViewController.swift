@@ -16,6 +16,12 @@ class HomeTableViewController: VisitorTableViewController {
 
     private lazy var listViewModel: StatusListViewModel = StatusListViewModel()
     
+    private lazy var pullUpView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .white)
+        indicator.color = .lightGray
+        return indicator
+    }()
+    
     private var dataList: [Status]?
     
     override func viewDidLoad() {
@@ -44,13 +50,19 @@ class HomeTableViewController: VisitorTableViewController {
         refreshControl = WeiboRefreshControl()
         // 添加监听方法
         refreshControl?.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        
+        // 上拉刷新视图
+        tableView.tableFooterView = pullUpView
     }
     
     @objc private func loadData() {
         refreshControl?.beginRefreshing()
-        listViewModel.loadStatus { (isSuccessed) in
+        listViewModel.loadStatus(isPullup: pullUpView.isAnimating) { (isSuccessed) in
             // 关闭刷新控件
             self.refreshControl?.endRefreshing()
+            // 关闭上拉刷新
+            self.pullUpView.stopAnimating()
+            
             if !isSuccessed {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
                 return
@@ -74,6 +86,12 @@ extension HomeTableViewController {
         let vm = listViewModel.statusList[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         cell.viewModel = vm
+        // 判断是否是最后一条微博
+        if indexPath.row == listViewModel.statusList.count - 1 && !pullUpView.isAnimating {
+            // 开始上拉刷新动画
+            pullUpView.startAnimating()
+            loadData()
+        }
         return cell
     }
     

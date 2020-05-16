@@ -12,8 +12,18 @@ import SDWebImage
 class StatusListViewModel {
     lazy var statusList = [StatusWeiboViewModel]()
     
-    func loadStatus(finish: @escaping (_ isSuccessed: Bool) -> ()) {
-        NetTools.sharedTools.loadStatus { (result, error) in
+    /**
+         加载微博数据
+       * parameter isPullup   是否上拉刷新
+       * parameter finish  回调函数
+    */
+    func loadStatus(isPullup: Bool, finish: @escaping (_ isSuccessed: Bool) -> ()) {
+        
+        // 微博最上面的 内容是最新的，也就是返回的第一条微博是最新的
+        let since_id = isPullup ? 0 : (statusList.first?.status.id ?? 0)
+        let max_id = isPullup ? (statusList.last?.status.id ?? 0) : 0
+        
+        NetTools.sharedTools.loadStatus(since_id: since_id, max_id: max_id) { (result, error) in
             if error != nil {
                 finish(false)
                 return
@@ -30,7 +40,13 @@ class StatusListViewModel {
                 let s = StatusWeiboViewModel(status: Status(dict: dict))
                 arrayList.append(s)
             }
-            self.statusList = arrayList + self.statusList
+            // 如果是下拉刷新，那么将最新的数据拼接在最前面
+            if since_id > 0 {
+                self.statusList = arrayList + self.statusList
+            } else { // 如果是上拉刷新，那么把之前的数据放在后面
+                self.statusList += arrayList
+            }
+            
             
             self.cacheSinglePicture(dataList: arrayList, finish: finish)
         }

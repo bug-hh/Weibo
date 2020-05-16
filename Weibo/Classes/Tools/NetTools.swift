@@ -42,11 +42,26 @@ class NetTools: AFHTTPSessionManager {
 
 // MARK: - 获取用户微博数据方法
 extension NetTools {
-    func loadStatus(finish: @escaping HHRequestCallBack) {
+    
+    /**
+          加载微博数据
+        * parameter since_id   若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。
+        * parameter max_id   若指定此参数，则返回ID小于或等于max_id的微博，默认为0
+        * parameter finish  回调函数
+     */
+    func loadStatus(since_id: Int, max_id: Int, finish: @escaping HHRequestCallBack) {
         // 获取 token 字典
-        guard let parameters = tokenDict else {
+        guard var parameters = tokenDict else {
             finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
             return
+        }
+        
+        // 判断是否下拉刷新
+        if since_id > 0 {
+            parameters["since_id"] = since_id
+        } else if max_id > 0 {  // 判断是否为上拉
+            // 减一，为了防止 等于 max_id 的微博重复
+            parameters["max_id"] = max_id - 1
         }
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
         
