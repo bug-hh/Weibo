@@ -25,6 +25,16 @@ class MainViewController: UITabBarController {
      */
     @objc private func composedButtonClicked() {
         print("点击")
+        var vc: UIViewController
+        // 判断用户是否已经登录
+        if UserAccountViewModel.sharedViewModel.userLogin {
+            vc = ComposeViewController()
+            
+        } else {
+            vc = OAuthViewController()
+        }
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

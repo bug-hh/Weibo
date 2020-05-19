@@ -19,6 +19,7 @@
 		66989BD52462D96700CC45F6 /* StatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD42462D96700CC45F6 /* StatusListViewModel.swift */; };
 		66989BD72462E65800CC45F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD62462E65800CC45F6 /* User.swift */; };
 		66989BD92462F56300CC45F6 /* StatusWeiboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */; };
+		669B5B9E24740D150080D305 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669B5B9D24740D150080D305 /* ComposeViewController.swift */; };
 		6813E036245EB5A800D19575 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813E035245EB5A800D19575 /* WelcomeViewController.swift */; };
 		6832C2A2245ED5B7004148F7 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832C2A1245ED5B7004148F7 /* Common.swift */; };
 		683B83792455179800C62578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B83782455179800C62578 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		66989BD42462D96700CC45F6 /* StatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewModel.swift; sourceTree = "<group>"; };
 		66989BD62462E65800CC45F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWeiboViewModel.swift; sourceTree = "<group>"; };
+		669B5B9D24740D150080D305 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		6813E035245EB5A800D19575 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6832C2A1245ED5B7004148F7 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		683B83752455179800C62578 /* Weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +132,7 @@
 		6601665A2455BCB40045779B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				669B5B9C24740CEF0080D305 /* Compose */,
 				68860186245BC0F200DB6D92 /* OAuth */,
 				6601665B2455BCB40045779B /* Home */,
 				6601665C2455BCB40045779B /* Discovery */,
@@ -182,6 +185,14 @@
 				660166602455BD7C0045779B /* MainViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		669B5B9C24740CEF0080D305 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				669B5B9D24740D150080D305 /* ComposeViewController.swift */,
+			);
+			path = Compose;
 			sourceTree = "<group>";
 		};
 		683B836C2455179800C62578 = {
@@ -419,6 +430,7 @@
 				660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */,
 				688879B82463823100E289B7 /* StatusCellTopView.swift in Sources */,
 				68860185245BC04500DB6D92 /* NetTools.swift in Sources */,
+				669B5B9E24740D150080D305 /* ComposeViewController.swift in Sources */,
 				660166612455BD7C0045779B /* MainViewController.swift in Sources */,
 				6652717C246AD3D8006B0D9D /* StatusRetweetedCell.swift in Sources */,
 				688879BC2468C05F00E289B7 /* StatusPictureView.swift in Sources */,

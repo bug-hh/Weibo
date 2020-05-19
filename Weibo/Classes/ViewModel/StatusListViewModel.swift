@@ -47,8 +47,9 @@ class StatusListViewModel {
                 self.statusList += arrayList
             }
             
-            
-            self.cacheSinglePicture(dataList: arrayList, finish: finish)
+            finish(true)
+            // 当缓存图片总量过大时，会崩溃，原因不明，暂时先不使用缓存图片的功能
+//            self.cacheSinglePicture(dataList: arrayList, finish: finish)
         }
     }
     

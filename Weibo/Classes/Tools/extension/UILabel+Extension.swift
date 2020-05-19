@@ -21,7 +21,7 @@ extension UILabel {
             self.preferredMaxLayoutWidth = UIScreen.main.bounds.width - 2 * screenInset
             self.textAlignment = .left
         }
-        
+        sizeToFit()
     }
     
     convenience init(text: String, fontSize: CGFloat = 14, textColor: UIColor = .darkGray, screenInset: CGFloat = 0) {
