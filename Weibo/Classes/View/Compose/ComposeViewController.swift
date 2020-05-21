@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 class ComposeViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class ComposeViewController: UIViewController {
         // 始终允许垂直滚动
         tv.bounces = true
         tv.alwaysBounceVertical = true
+        tv.delegate = self
         return tv
     }()
     
@@ -39,7 +41,20 @@ class ComposeViewController: UIViewController {
     }
     
     @objc func send() {
-        print("发送微博")
+        print("第三方分享一条链接到微博")
+        // 1、获取微博文本
+        let text = textView.emoticonText
+        // 2、分享微博
+        NetTools.sharedTools.share(status: text) { (result, error) in
+            if (error != nil) {
+                print("出错了")
+                SVProgressHUD.showError(withStatus: "出错了")
+                return
+            }
+            print(result)
+            // 关闭控制器
+            self.close()
+        }
     }
     
     @objc func emojiClick() {
@@ -108,6 +123,14 @@ class ComposeViewController: UIViewController {
     }
 }
 
+// MARK: - UITextView 代理方法
+extension ComposeViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        navigationItem.rightBarButtonItem?.isEnabled = textView.hasText
+        placeHolderLabel.isHidden = textView.hasText
+    }
+    
+}
 // 设置界面
 extension ComposeViewController {
     private func setupUI() {
@@ -125,6 +148,9 @@ extension ComposeViewController {
         // 左右按钮
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "发送", style: .plain, target: self, action: #selector(send))
+        
+        // 禁用发布按钮
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         // 中间标题视图
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 36))
@@ -187,7 +213,6 @@ extension ComposeViewController {
             make.bottom.equalTo(toolBar.snp.top)
         }
         
-        textView.text = "分享新鲜事..."
         textView.addSubview(placeHolderLabel)
         
         placeHolderLabel.snp.makeConstraints { (make) in

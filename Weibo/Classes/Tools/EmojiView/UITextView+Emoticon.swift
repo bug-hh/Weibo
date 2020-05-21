@@ -28,6 +28,9 @@ extension UITextView {
         }
         
         insertImageEmoticon(em: em)
+        
+        // 通知代理，文本发生了变化
+        delegate?.textViewDidChange?(self)
     }
     
     func insertImageEmoticon(em: Emoticon) {

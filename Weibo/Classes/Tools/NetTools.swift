@@ -31,12 +31,12 @@ class NetTools: AFHTTPSessionManager {
         return tools
     }()
 
-    private var tokenDict:[String: Any]? {
-        if let token = UserAccountViewModel.sharedViewModel.accessToken {
-            return ["access_token": token]
-        }
-        return nil
-    }
+//    private var tokenDict:[String: Any]? {
+//        if let token = UserAccountViewModel.sharedViewModel.accessToken {
+//            return ["access_token": token]
+//        }
+//        return nil
+//    }
 
 }
 
@@ -50,11 +50,9 @@ extension NetTools {
         * parameter finish  回调函数
      */
     func loadStatus(since_id: Int, max_id: Int, finish: @escaping HHRequestCallBack) {
-        // 获取 token 字典
-        guard var parameters = tokenDict else {
-            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
-            return
-        }
+        // 创建参数字典
+        var parameters = [String: Any]()
+        
         
         // 判断是否下拉刷新
         if since_id > 0 {
@@ -65,22 +63,34 @@ extension NetTools {
         }
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
         
-        request(method: .GET, url: url, parameters: parameters, finish: finish)
+        tokenRequest(method: .GET, url: url, parameters: parameters, finish: finish)
         
     }
+}
+
+// MARK: - 第三方分享一条链接到微博
+extension NetTools {
+    func share(status: String, finish: @escaping HHRequestCallBack) {
+        // 创建参数字典
+        var parameters = [String: Any]()
+        
+        parameters["status"] = status
+        let url = "https://api.weibo.com/2/statuses/share.json"
+        tokenRequest(method: .POST, url: url, parameters: parameters, finish: finish)
+        
+    }
+    
 }
 
 // MARK: - 获取微博用户信息方法
 extension NetTools {
     func loadUserInfo(uid: String?, finish: @escaping HHRequestCallBack) {
-        // 获取 token 字典
-        guard var parameters = tokenDict else {
-            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
-            return
-        }
+        // 创建参数字典
+        var parameters = [String: Any]()
+        
         let url = "https://api.weibo.com/2/users/show.json"
         parameters["uid"] = uid
-        request(method: .GET, url: url, parameters: parameters as [String : Any], finish: finish)
+        tokenRequest(method: .GET, url: url, parameters: parameters as [String : Any], finish: finish)
     }
     
 }
@@ -112,13 +122,29 @@ extension NetTools {
 //            print(ua.access_token)
 //        }, failure: nil)
     }
-    
-    
 }
+
+
 // MARK: - 封装 AFN 网络方法
 extension NetTools {
-//    新版的Swift闭包做参数默认是@noescaping，不再是@escaping。所以如果函数里异步执行该闭包，要添加@escaping。
+    func tokenRequest(method: HHRequestMethod, url: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
+        // 将 token 参数添加到 parameters 字典
+        // 判断 token 是否有效
+        guard let token = UserAccountViewModel.sharedViewModel.accessToken else {
+            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
+            return
+        }
+        
+        var pm = parameters == nil ? [String: Any]() : parameters!
+        pm["access_token"] = token
+        
+        // 发起网络请求
+        request(method: method, url: url, parameters: pm, finish: finish)
+        
+    }
     
+    
+//    新版的Swift闭包做参数默认是@noescaping，不再是@escaping。所以如果函数里异步执行该闭包，要添加@escaping。
     func request(method: HHRequestMethod, url: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
         
         // 第一种写法，推荐写法
