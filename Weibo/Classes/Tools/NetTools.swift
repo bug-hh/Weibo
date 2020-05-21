@@ -31,13 +31,6 @@ class NetTools: AFHTTPSessionManager {
         return tools
     }()
 
-//    private var tokenDict:[String: Any]? {
-//        if let token = UserAccountViewModel.sharedViewModel.accessToken {
-//            return ["access_token": token]
-//        }
-//        return nil
-//    }
-
 }
 
 // MARK: - 获取用户微博数据方法
@@ -63,7 +56,7 @@ extension NetTools {
         }
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
         
-        tokenRequest(method: .GET, url: url, parameters: parameters, finish: finish)
+        tokenRequest(method: .GET, url: url, parameters: &parameters, finish: finish)
         
     }
 }
@@ -82,9 +75,9 @@ extension NetTools {
         
         if let img = image {
             let d = img.pngData()
-            upload(url: url, data: d!, name: "pic", parameters: parameters, finish: finish)
+            upload(url: url, data: d!, name: "pic", parameters: &parameters, finish: finish)
         } else{
-            tokenRequest(method: .POST, url: url, parameters: parameters, finish: finish)
+            tokenRequest(method: .POST, url: url, parameters: &parameters, finish: finish)
         }
         
     }
@@ -99,7 +92,7 @@ extension NetTools {
         
         let url = "https://api.weibo.com/2/users/show.json"
         parameters["uid"] = uid
-        tokenRequest(method: .GET, url: url, parameters: parameters as [String : Any], finish: finish)
+        tokenRequest(method: .GET, url: url, parameters: &parameters, finish: finish)
     }
     
 }
@@ -136,19 +129,27 @@ extension NetTools {
 
 // MARK: - 封装 AFN 网络方法
 extension NetTools {
-    func tokenRequest(method: HHRequestMethod, url: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
+    
+    func appendToken(parameters: inout [String: Any]) -> Bool {
+        guard let token = UserAccountViewModel.sharedViewModel.accessToken else {
+            return false
+        }
+        if parameters == nil {
+            parameters = [String: Any]()
+        }
+        parameters["access_token"] = token
+        return true
+    }
+    
+    func tokenRequest(method: HHRequestMethod, url: String, parameters: inout [String : Any], finish: @escaping HHRequestCallBack) {
         // 将 token 参数添加到 parameters 字典
         // 判断 token 是否有效
-        guard let token = UserAccountViewModel.sharedViewModel.accessToken else {
+        if !appendToken(parameters: &parameters) {
             finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
             return
         }
-        
-        var pm = parameters == nil ? [String: Any]() : parameters!
-        pm["access_token"] = token
-        
         // 发起网络请求
-        request(method: method, url: url, parameters: pm, finish: finish)
+        request(method: method, url: url, parameters: parameters, finish: finish)
         
     }
     
@@ -192,16 +193,13 @@ extension NetTools {
 //        }
     }
     
-    func upload(url: String, data: Data, name: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
+    func upload(url: String, data: Data, name: String, parameters: inout [String: Any], finish: @escaping HHRequestCallBack) {
         // 将 token 参数添加到 parameters 字典
         // 判断 token 是否有效
-        guard let token = UserAccountViewModel.sharedViewModel.accessToken else {
+        if !appendToken(parameters: &parameters) {
             finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
             return
         }
-        
-        var pm = parameters == nil ? [String: Any]() : parameters!
-        pm["access_token"] = token
         
         /*
             data: 要上传文件的二进制数据
