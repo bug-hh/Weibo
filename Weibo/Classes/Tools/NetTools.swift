@@ -70,13 +70,22 @@ extension NetTools {
 
 // MARK: - 第三方分享一条链接到微博
 extension NetTools {
-    func share(status: String, finish: @escaping HHRequestCallBack) {
+    /**
+            * see [https://open.weibo.com/wiki/2/statuses/share](https://open.weibo.com/wiki/2/statuses/share)
+     */
+    func share(status: String, image: UIImage?, finish: @escaping HHRequestCallBack) {
         // 创建参数字典
         var parameters = [String: Any]()
         
         parameters["status"] = status
         let url = "https://api.weibo.com/2/statuses/share.json"
-        tokenRequest(method: .POST, url: url, parameters: parameters, finish: finish)
+        
+        if let img = image {
+            let d = img.pngData()
+            upload(url: url, data: d!, name: "pic", parameters: parameters, finish: finish)
+        } else{
+            tokenRequest(method: .POST, url: url, parameters: parameters, finish: finish)
+        }
         
     }
     
@@ -181,8 +190,39 @@ extension NetTools {
 //                finish(nil, error as NSError?)
 //            }
 //        }
+    }
+    
+    func upload(url: String, data: Data, name: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
+        // 将 token 参数添加到 parameters 字典
+        // 判断 token 是否有效
+        guard let token = UserAccountViewModel.sharedViewModel.accessToken else {
+            finish(nil, NSError(domain: "com.bughh.error", code: 1000, userInfo: ["message": "无效 token"]) as Error)
+            return
+        }
         
+        var pm = parameters == nil ? [String: Any]() : parameters!
+        pm["access_token"] = token
         
+        /*
+            data: 要上传文件的二进制数据
+            name: 服务器定义的字段名称 - 后台接口文档会提示
+            fileName: 保存在服务器的文件名，通常可以乱写，后端会做后续处理
+                根据上传的文件，生成 缩略图，中等图，高清图
+                保存在不同的路径，并自动生成文件名
+                fileName 是 HTTP 协议定义的属性
+            mimeType / contentType: 客户端告诉服务器，二进制数据的准确类型
+                例如：image/jpg
+                如果不想告诉服务器
+                     application/octet-stream
+         */
+        
+        post(url, parameters: parameters, headers: nil, constructingBodyWith: { (formData) in
+            formData.appendPart(withFileData: data, name: name, fileName: "xxx", mimeType: "multipart/form-data")
+        }, progress: nil, success: { (_, result) in
+            finish(result, nil)
+        }) { (_, error) in
+            finish(nil, error)
+        }
     }
     
 }

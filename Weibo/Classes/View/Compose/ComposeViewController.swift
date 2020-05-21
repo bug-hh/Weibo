@@ -45,7 +45,7 @@ class ComposeViewController: UIViewController {
         // 1、获取微博文本
         let text = textView.emoticonText
         // 2、分享微博
-        NetTools.sharedTools.share(status: text) { (result, error) in
+        NetTools.sharedTools.share(status: text, image: nil) { (result, error) in
             if (error != nil) {
                 print("出错了")
                 SVProgressHUD.showError(withStatus: "出错了")
