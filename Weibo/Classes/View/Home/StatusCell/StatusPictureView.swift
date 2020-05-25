@@ -39,7 +39,7 @@ class StatusPictureView: UICollectionView {
         //  设置数据源
         //  应用场景：自定义视图的小框架
         dataSource = self
-        
+        delegate = self
         // 注册可重用 cell
         register(StatusPictureViewCell.self, forCellWithReuseIdentifier: StatusPictureViewID)
     }
@@ -62,6 +62,17 @@ extension StatusPictureView: UICollectionViewDataSource {
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegate
+extension StatusPictureView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let userInfo = [WBStatusSelectedPhotoIndexPathKey: indexPath, WBStatusSelectedPhotoURLsKey: viewModel!.thumbnailUrls!] as [String : Any]
+        NotificationCenter.default.post(name: NSNotification.Name(WBStatusSelectedPhotoNotification),
+                                        object: self,
+                                        userInfo: userInfo)
+    }
+}
+
 // MARK: - 计算视图大小
 extension StatusPictureView {
     private func calcViewSize() -> CGSize {

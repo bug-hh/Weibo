@@ -16,6 +16,7 @@
 		660166692455BE450045779B /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660166682455BE450045779B /* HomeTableViewController.swift */; };
 		660DCBAA246D6A5D0004E871 /* StatusNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660DCBA9246D6A5D0004E871 /* StatusNormalCell.swift */; };
 		6652717C246AD3D8006B0D9D /* StatusRetweetedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6652717B246AD3D8006B0D9D /* StatusRetweetedCell.swift */; };
+		6673294E247C009300BF6118 /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6673294D247C009300BF6118 /* PhotoBrowserViewController.swift */; };
 		66763C70247560140075E565 /* EmoticonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66763C67247560140075E565 /* EmoticonManager.swift */; };
 		66763C71247560140075E565 /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 66763C68247560140075E565 /* Emoticons.bundle */; };
 		66763C72247560140075E565 /* EmoticonAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66763C69247560140075E565 /* EmoticonAttachment.swift */; };
@@ -65,6 +66,7 @@
 		660166682455BE450045779B /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		660DCBA9246D6A5D0004E871 /* StatusNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusNormalCell.swift; sourceTree = "<group>"; };
 		6652717B246AD3D8006B0D9D /* StatusRetweetedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRetweetedCell.swift; sourceTree = "<group>"; };
+		6673294D247C009300BF6118 /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		66763C67247560140075E565 /* EmoticonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonManager.swift; sourceTree = "<group>"; };
 		66763C68247560140075E565 /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		66763C69247560140075E565 /* EmoticonAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonAttachment.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		660166582455BCB40045779B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				6673294C247BF45600BF6118 /* PhotoBrowser */,
 				68F83057247A532D00BED5C7 /* PicturePicker */,
 				66763C65247560140075E565 /* EmojiView */,
 				683B838F24565BE600C62578 /* extension */,
@@ -209,6 +212,14 @@
 				660166602455BD7C0045779B /* MainViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		6673294C247BF45600BF6118 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				6673294D247C009300BF6118 /* PhotoBrowserViewController.swift */,
+			);
+			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
 		66763C65247560140075E565 /* EmojiView */ = {
@@ -528,6 +539,7 @@
 				660166632455BDFB0045779B /* ProfileTableViewController.swift in Sources */,
 				6832C2A2245ED5B7004148F7 /* Common.swift in Sources */,
 				688879BA2463824A00E289B7 /* StatusCellBottomView.swift in Sources */,
+				6673294E247C009300BF6118 /* PhotoBrowserViewController.swift in Sources */,
 				6886018C245D8E8500DB6D92 /* UserAccountViewModel.swift in Sources */,
 				683B837B2455179800C62578 /* SceneDelegate.swift in Sources */,
 				6886018A245D1AE200DB6D92 /* UserAccount.swift in Sources */,

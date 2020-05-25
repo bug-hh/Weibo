@@ -33,6 +33,28 @@ class HomeTableViewController: VisitorTableViewController {
         
         prepareTableView()
         loadData()
+        
+        // 注册通知, 如果使用通知中心的 block 监听，其中的 self 一定要弱引用
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: WBStatusSelectedPhotoNotification),
+                                               object: nil,  // 发送通知的对象，如果为 nil，则监听所有对象
+                                               queue: nil)   // 如果为 nil，那么 queue 就用 主线程
+        { [weak self] (notification) in
+            print("接收通知 \(notification)")
+            guard let indexPath = notification.userInfo?[NSNotification.Name(rawValue: WBStatusSelectedPhotoIndexPathKey)] else {
+                return
+            }
+            
+            guard let urls = notification.userInfo?[NSNotification.Name(rawValue: WBStatusSelectedPhotoURLsKey)] else {
+                return
+            }
+            let vc = PhotoBrowserViewController(urls: urls as! [URL], indexPath: indexPath as! IndexPath)
+            self?.present(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func prepareTableView() {
