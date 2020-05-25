@@ -12,6 +12,8 @@ import SVProgressHUD
 
 class ComposeViewController: UIViewController {
     
+    private lazy var picturePickerController = PicturePickerViewController()
+    
     private lazy var emojiView: EmojiView = EmojiView { [weak self] (emoticon) in
         self?.textView.insertEmoticon(em: emoticon)
     }
@@ -56,7 +58,38 @@ class ComposeViewController: UIViewController {
             self.close()
         }
     }
+    // MARK: - 选择照片
+    @objc func picturePickerClick() {
+        print("选择照片")
+        // 收起键盘
+        textView.resignFirstResponder()
+        
+        if picturePickerController.view.frame.height > 0 {
+            return
+        }
+        
+        // 修改照片选择器的约束
+        picturePickerController.view.snp.updateConstraints { (update) in
+            update.height.equalTo(view.bounds.height * 0.7)
+        }
+        
+        // 重建 textView 的约束
+        let height = self.navigationController?.navigationBar.frame.maxY
+        textView.snp.remakeConstraints { (remake) in
+            remake.left.equalTo(view.snp.left)
+            remake.right.equalTo(view.snp.right)
+            remake.top.equalTo(view.snp.top).offset(height!)
+            remake.bottom.equalTo(picturePickerController.view.snp.top)
+        }
+        
+        // 动画更新约束
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
     
+    // MARK: - 选择表情，唤起自定义表情键盘
     @objc func emojiClick() {
         print("表情 click")
         // 1、退掉键盘
@@ -118,8 +151,12 @@ class ComposeViewController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        // 当用户进入「发微博」的界面后，第一时间把键盘弹出来
-        textView.becomeFirstResponder()
+        super.viewDidAppear(animated)
+        /* 当用户进入「发微博」的界面后，同时界面上没有照片选择器，第一时间把键盘弹出来*/
+        if picturePickerController.view.frame.height == 0 {
+            textView.becomeFirstResponder()
+        }
+        
     }
 }
 
@@ -142,6 +179,8 @@ extension ComposeViewController {
         prepareToolbar()
         // 设置文本输入框
         prepareTextView()
+        // 设置照片选择器
+        preparePicturePicker()
     }
     
     private func prepareNavigationBar() {
@@ -185,7 +224,7 @@ extension ComposeViewController {
         }
         
         let itemSettings = [
-            ["imageName": "compose_toolbar_picture"],
+            ["imageName": "compose_toolbar_picture", "actionName": "picturePickerClick"],
             ["imageName": "compose_mentionbutton_background"],
             ["imageName": "compose_trendbutton_background"],
             ["imageName": "compose_emoticonbutton_background", "actionName": "emojiClick"],
@@ -219,5 +258,22 @@ extension ComposeViewController {
             make.left.equalTo(textView.snp.left).offset(6)
             make.top.equalTo(textView.snp.top).offset(8)
         }
+    }
+    
+    private func preparePicturePicker() {
+        // 0、添加子控制器
+        addChild(picturePickerController)
+        
+        // 1、添加布局
+        view.insertSubview(picturePickerController.view, belowSubview: toolBar)
+        
+        // 2、自动布局
+        picturePickerController.view.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.snp.bottom)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.height.equalTo(0)
+        }
+        
     }
 }

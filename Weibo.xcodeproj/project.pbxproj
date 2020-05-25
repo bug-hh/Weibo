@@ -51,6 +51,8 @@
 		688879BC2468C05F00E289B7 /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879BB2468C05F00E289B7 /* StatusPictureView.swift */; };
 		688879BF246EDE9F00E289B7 /* WeiboRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688879BE246EDE9F00E289B7 /* WeiboRefreshControl.swift */; };
 		688879C1246EE0CA00E289B7 /* WeiboRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688879C0246EE0CA00E289B7 /* WeiboRefreshView.xib */; };
+		68F83056247A516600BED5C7 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F83055247A516600BED5C7 /* UIImage+Extension.swift */; };
+		68F83059247A532D00BED5C7 /* PicturePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F83058247A532D00BED5C7 /* PicturePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		688879BB2468C05F00E289B7 /* StatusPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
 		688879BE246EDE9F00E289B7 /* WeiboRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeiboRefreshControl.swift; sourceTree = "<group>"; };
 		688879C0246EE0CA00E289B7 /* WeiboRefreshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeiboRefreshView.xib; sourceTree = "<group>"; };
+		68F83055247A516600BED5C7 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		68F83058247A532D00BED5C7 /* PicturePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturePickerViewController.swift; sourceTree = "<group>"; };
 		692326F807E5166FF013813B /* Pods-Weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weibo.debug.xcconfig"; path = "Target Support Files/Pods-Weibo/Pods-Weibo.debug.xcconfig"; sourceTree = "<group>"; };
 		A989FFC71F91B5D4307A66E2 /* Pods_Weibo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weibo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +144,7 @@
 		660166582455BCB40045779B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				68F83057247A532D00BED5C7 /* PicturePicker */,
 				66763C65247560140075E565 /* EmojiView */,
 				683B838F24565BE600C62578 /* extension */,
 				68860184245BC04500DB6D92 /* NetTools.swift */,
@@ -283,6 +288,7 @@
 				684F91942459B495001CA1B9 /* UIImageView+Extension.swift */,
 				684F91962459B6F6001CA1B9 /* UILabel+Extension.swift */,
 				686331D92474B28400733C5D /* UIBarButtonItem+Extension.swift */,
+				68F83055247A516600BED5C7 /* UIImage+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -343,6 +349,14 @@
 				688879C0246EE0CA00E289B7 /* WeiboRefreshView.xib */,
 			);
 			path = RefreshView;
+			sourceTree = "<group>";
+		};
+		68F83057247A532D00BED5C7 /* PicturePicker */ = {
+			isa = PBXGroup;
+			children = (
+				68F83058247A532D00BED5C7 /* PicturePickerViewController.swift */,
+			);
+			path = PicturePicker;
 			sourceTree = "<group>";
 		};
 		694749624C0197EC1968C856 /* Pods */ = {
@@ -480,6 +494,7 @@
 			files = (
 				686331DA2474B28400733C5D /* UIBarButtonItem+Extension.swift in Sources */,
 				66763C76247560140075E565 /* String+Emoji.swift in Sources */,
+				68F83059247A532D00BED5C7 /* PicturePickerViewController.swift in Sources */,
 				68860188245BC11400DB6D92 /* OAuthViewController.swift in Sources */,
 				66763C74247560140075E565 /* EmoticonPackage.swift in Sources */,
 				660166672455BE340045779B /* DiscoveryTableViewController.swift in Sources */,
@@ -505,6 +520,7 @@
 				684F91912457ADA3001CA1B9 /* VisitorTableViewController.swift in Sources */,
 				688879B3246005EF00E289B7 /* Status.swift in Sources */,
 				66989BD92462F56300CC45F6 /* StatusWeiboViewModel.swift in Sources */,
+				68F83056247A516600BED5C7 /* UIImage+Extension.swift in Sources */,
 				684F91952459B495001CA1B9 /* UIImageView+Extension.swift in Sources */,
 				684F91972459B6F6001CA1B9 /* UILabel+Extension.swift in Sources */,
 				66989BD52462D96700CC45F6 /* StatusListViewModel.swift in Sources */,
