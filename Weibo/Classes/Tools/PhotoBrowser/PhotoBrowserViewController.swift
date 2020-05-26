@@ -8,11 +8,29 @@
 
 import UIKit
 
+let PhotoBrowserViewCellID = "PhotoBrowserViewCellID"
+
 // 照片浏览器
 class PhotoBrowserViewController: UIViewController {
 
     private var urls: [URL]
     private var currentIndexPath: IndexPath
+    
+    private class PhotoBrowserViewLayout: UICollectionViewFlowLayout {
+        override func prepare() {
+            super.prepare()
+            itemSize = collectionView!.bounds.size
+            minimumLineSpacing = 0
+            minimumInteritemSpacing = 0
+            scrollDirection = .horizontal
+            
+            collectionView?.isPagingEnabled = true
+            collectionView?.bounces = false
+            
+//            collectionView?.showsHorizontalScrollIndicator = false
+            
+        }
+    }
     
     @objc private func closeButtonClick() {
         dismiss(animated: true, completion: nil)
@@ -23,7 +41,7 @@ class PhotoBrowserViewController: UIViewController {
     }
     
     // 懒加载控件
-    private lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PhotoBrowserViewLayout())
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setTitle("关闭", for: .normal)
@@ -93,5 +111,29 @@ extension PhotoBrowserViewController {
         // 设置监听方法
         closeButton.addTarget(self, action: #selector(closeButtonClick), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveButtonClick), for: .touchUpInside)
+        
+        // 准备 collectionView
+        prepareCollectionView()
+    }
+    
+    private func prepareCollectionView() {
+        // 注册可重用 cell
+        collectionView.register(PhotoBrowserCell.self, forCellWithReuseIdentifier: PhotoBrowserViewCellID)
+        // 设置数据源
+        collectionView.dataSource = self
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension PhotoBrowserViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return urls.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserViewCellID, for: indexPath) as! PhotoBrowserCell
+        cell.backgroundColor = UIColor.randomColor()
+        cell.imageUrl = urls[indexPath.item]
+        return cell
     }
 }
