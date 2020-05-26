@@ -48,8 +48,7 @@ class StatusListViewModel {
             }
             
             finish(true)
-            // 当缓存图片总量过大时，会崩溃，原因不明，暂时先不使用缓存图片的功能
-//            self.cacheSinglePicture(dataList: arrayList, finish: finish)
+            self.cacheSinglePicture(dataList: arrayList, finish: finish)
         }
     }
     
@@ -72,7 +71,15 @@ class StatusListViewModel {
             
             // SDWebImage - 下载图像（缓存是自动完成的），如果本地缓存已经存在，同样会通过完成回调返回
             // 只有当 缓存图像大小较小时，才能用这种方式缓存
-            SDWebImageManager.shared.loadImage(with: url as URL, options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], progress: nil) { (image, _, _, _, _, _) in
+            /*
+             SDWebImage 的核心下载函数，如果本地缓存已经存在，同样会通过完成回调返回
+             如果设置了 SDWebImageOptions.retryFailed，如果下载失败，block 会结束一次，会做一次出组。
+             然后 SDWebImage 再次尝试下载，下载完成后，再次调用闭包中的代码，「再次调用出组函数」，造成调度组不匹配，引起崩溃
+             SDWebImageOptions.refreshCached，第一次发起网络请求，把缓存的图片的 hash 值发送给服务器，
+             服务器对比 hash 值，如果和服务器内容一致，返回状态码 304，表示服务器内容没有变化
+             如果不是 304，则 SDWebImage 会再次发起网络请求,获得更新后的内容(这个和 retryFailed）是一致的
+             */
+            SDWebImageManager.shared.loadImage(with: url as URL, options: [], progress: nil) { (image, _, _, _, _, _) in
                 // 单张图片下载完成
                 if let img = image {
                     let data = UIImage.pngData(img)

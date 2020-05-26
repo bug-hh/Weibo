@@ -74,7 +74,9 @@ class PhotoBrowserViewController: UIViewController {
     
     override func loadView() {
 //        super.loadView()
-        let rect = UIScreen.main.bounds
+        var rect = UIScreen.main.bounds
+        // 给图片与图片之间留出边距
+        rect.size.width += 20
         view = UIView(frame: rect)
         setupUI()
     }
@@ -132,7 +134,7 @@ extension PhotoBrowserViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserViewCellID, for: indexPath) as! PhotoBrowserCell
-        cell.backgroundColor = UIColor.randomColor()
+        cell.backgroundColor = .black
         cell.imageUrl = urls[indexPath.item]
         return cell
     }

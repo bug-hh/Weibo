@@ -11,7 +11,7 @@ import UIKit
 private let PicturePickerCellID = "Cell"
 
 // 最大选择照片数量
-private let PicturePickerMaxCount = 8
+private let PicturePickerMaxCount = 3
 
 class PicturePickerViewController: UICollectionViewController {
 
@@ -105,7 +105,14 @@ extension PicturePickerViewController: PicturePickerCellDelegate {
         // 删除数据
         pictures.remove(at: indexPath.item)
         // 动画删除视图
+        /*
+         在现在的 iOS 中，没有出现，删除一张图片，崩溃的情况，以前的 iOS 中有
+         重新调用数据源方法（内部要求 3 个 即：PicturePickerMaxCount = 3，删除一个 indexpath，如果数据源方法不返回 2，就会崩溃，
+         解决办法可以是：使用 reloadData() 代替，
+         reloadData 函数，单纯刷新数据，没有动画，同时不会检测具体的 item 数量
+         */
         collectionView.deleteItems(at: [indexPath])
+        
     }
     
 }
