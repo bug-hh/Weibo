@@ -8,12 +8,19 @@
 
 import UIKit
 import SDWebImage
+import SVProgressHUD
+
+protocol PhotoBrowserCellDelegate: NSObjectProtocol {
+    func photoBrowserCellDidTapImage()
+}
 
 class PhotoBrowserCell: UICollectionViewCell {
-    private lazy var scrollView: UIScrollView = UIScrollView()
-    private lazy var imageView: UIImageView = UIImageView()
-    private lazy var placeHolder: ProgressImageView = ProgressImageView()
+
+    weak var delegate: PhotoBrowserCellDelegate?
     
+    lazy var scrollView: UIScrollView = UIScrollView()
+    lazy var imageView: UIImageView = UIImageView()
+    private lazy var placeHolder: ProgressImageView = ProgressImageView()
     
     // http://wx3.sinaimg.cn/thumbnail/006x0M7Agy1gf4ldi9jm8j31900u04qr.jpg 缩略图
     // https://open.weibo.com/wiki/2/statuses/home_timeline  文档地址
@@ -46,11 +53,23 @@ class PhotoBrowserCell: UICollectionViewCell {
                 }
 
             }) { (image, _, _, _) in
+                if image == nil {
+                    SVProgressHUD.showInfo(withStatus: "您的网络不给力")
+                    return
+                }
                 self.placeHolder.isHidden = true
                 self.setPosition(image: image!)
             }
         }
     }
+    
+    /*
+     手势识别是对 touch 的封装，UIScrollView 支持捏合手势，一般做过手势监听的控件，都会屏蔽掉 touch 事件,
+     当点击照片查看器的照片时，下面的方法不起作用
+     */
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("haha")
+//    }
     
     private func resetScrollView() {
         // 重设 imageView 内容属性，scrollView 在处理缩放的时候，是通过调整代理方法返回的视图的 transform 来实现的
@@ -124,10 +143,23 @@ class PhotoBrowserCell: UICollectionViewCell {
         scrollView.minimumZoomScale = 0.5
         scrollView.maximumZoomScale = 2.0
         
+        // 添加手势识别
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImage))
+        // UIImageView 用户交互默认是关闭的
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tap)
     }
     
 }
 
+// MARK: - 响应点击手势
+extension PhotoBrowserCell {
+    @objc private func tapImage() {
+        print("关闭图像")
+        delegate?.photoBrowserCellDidTapImage()
+    }
+    
+}
 extension PhotoBrowserCell: UIScrollViewDelegate {
     // 返回被缩放的视图，scrollView 在处理缩放的时候，是通过调整代理方法返回的视图的 transform 来实现的
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

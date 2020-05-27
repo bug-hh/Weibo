@@ -14,6 +14,9 @@ let StatusRetweetedCellID = "StatusRetweetedCellID"
 
 class HomeTableViewController: VisitorTableViewController {
 
+    // 照片查看转场动画代理
+    private lazy var photoBrowserAnimator: PhotoBrowserAnimator = PhotoBrowserAnimator()
+    
     private lazy var listViewModel: StatusListViewModel = StatusListViewModel()
     
     private lazy var pullUpView: UIActivityIndicatorView = {
@@ -47,7 +50,13 @@ class HomeTableViewController: VisitorTableViewController {
             guard let urls = notification.userInfo?[NSNotification.Name(rawValue: WBStatusSelectedPhotoURLsKey)] else {
                 return
             }
+            
             let vc = PhotoBrowserViewController(urls: urls as! [URL], indexPath: indexPath as! IndexPath)
+            // 设定 modal 的转场（动画）类型是自定义类型
+            vc.modalPresentationStyle = .custom
+            // 设置动画代理
+            vc.transitioningDelegate = self?.photoBrowserAnimator
+            // modal 展现
             self?.present(vc, animated: true, completion: nil)
         }
         

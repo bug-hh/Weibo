@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 let PhotoBrowserViewCellID = "PhotoBrowserViewCellID"
 
@@ -38,6 +39,24 @@ class PhotoBrowserViewController: UIViewController {
     
     @objc private func saveButtonClick() {
         print("保存照片")
+        // 获取图片
+        let cell = collectionView.visibleCells[0] as! PhotoBrowserCell
+        let image = cell.imageView.image
+        
+        // 保存图片
+        guard let img = image else {
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(img, self, #selector(imageCompletionHandler(img:didFinishSavingWithError:contextInfo:)), nil)
+        
+    }
+    
+//    - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+    @objc func imageCompletionHandler(img: UIImage, didFinishSavingWithError error: NSError?, contextInfo: Any) {
+        let message = error != nil ? "保存失败" : "保存成功"
+        SVProgressHUD.showInfo(withStatus: message)
+        
+        
     }
     
     // 懒加载控件
@@ -71,7 +90,8 @@ class PhotoBrowserViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    // loadView 与 xib，sb 等价，主要职责是创建视图层次结构，loadView 函数执行完毕，view 上的元素要创建完成
+    // 如果 view == nil，系统会在调用 view 的 get 方法时，自动调用 loadView，创建 view
     override func loadView() {
 //        super.loadView()
         var rect = UIScreen.main.bounds
@@ -81,10 +101,16 @@ class PhotoBrowserViewController: UIViewController {
         setupUI()
     }
     
+    /*
+     视图加载完成之后，被调用，loadView 执行完毕后，执行
+     主要做数据加载，或其他处理
+     但是，目前市场上很多程序，没有实现 loadView，所有建立子控件的代码都在 viewDidLoad 中
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(urls)
-        print(currentIndexPath)
+        
+        // 让 collection view 滚动到指定的位置
+        collectionView.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: false)
     }
 }
 
@@ -106,7 +132,7 @@ extension PhotoBrowserViewController {
         
         saveButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.snp.bottom).offset(-8)
-            make.right.equalTo(view.snp.right).offset(-8)
+            make.right.equalTo(view.snp.right).offset(-28)
             make.size.equalTo(CGSize(width: 100, height: 36))
         }
         
@@ -136,6 +162,14 @@ extension PhotoBrowserViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowserViewCellID, for: indexPath) as! PhotoBrowserCell
         cell.backgroundColor = .black
         cell.imageUrl = urls[indexPath.item]
+        cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - PhotoBrowserCellDelegate
+extension PhotoBrowserViewController: PhotoBrowserCellDelegate {
+    func photoBrowserCellDidTapImage() {
+        closeButtonClick()
     }
 }
