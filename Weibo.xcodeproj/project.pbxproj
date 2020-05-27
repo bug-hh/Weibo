@@ -54,6 +54,7 @@
 		688879C1246EE0CA00E289B7 /* WeiboRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688879C0246EE0CA00E289B7 /* WeiboRefreshView.xib */; };
 		68C5A8E3247CA96600C52256 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E2247CA96600C52256 /* UIColor+Extension.swift */; };
 		68C5A8E5247CAB5000C52256 /* PhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E4247CAB5000C52256 /* PhotoBrowserCell.swift */; };
+		68C5A8E7247DEBCC00C52256 /* ProgressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E6247DEBCC00C52256 /* ProgressImageView.swift */; };
 		68F83056247A516600BED5C7 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F83055247A516600BED5C7 /* UIImage+Extension.swift */; };
 		68F83059247A532D00BED5C7 /* PicturePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F83058247A532D00BED5C7 /* PicturePickerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		688879C0246EE0CA00E289B7 /* WeiboRefreshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeiboRefreshView.xib; sourceTree = "<group>"; };
 		68C5A8E2247CA96600C52256 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		68C5A8E4247CAB5000C52256 /* PhotoBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCell.swift; sourceTree = "<group>"; };
+		68C5A8E6247DEBCC00C52256 /* ProgressImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressImageView.swift; sourceTree = "<group>"; };
 		68F83055247A516600BED5C7 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		68F83058247A532D00BED5C7 /* PicturePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturePickerViewController.swift; sourceTree = "<group>"; };
 		692326F807E5166FF013813B /* Pods-Weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weibo.debug.xcconfig"; path = "Target Support Files/Pods-Weibo/Pods-Weibo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				6673294D247C009300BF6118 /* PhotoBrowserViewController.swift */,
 				68C5A8E4247CAB5000C52256 /* PhotoBrowserCell.swift */,
+				68C5A8E6247DEBCC00C52256 /* ProgressImageView.swift */,
 			);
 			path = PhotoBrowser;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				688879BF246EDE9F00E289B7 /* WeiboRefreshControl.swift in Sources */,
 				66763C77247560140075E565 /* UITextView+Emoticon.swift in Sources */,
 				68C5A8E3247CA96600C52256 /* UIColor+Extension.swift in Sources */,
+				68C5A8E7247DEBCC00C52256 /* ProgressImageView.swift in Sources */,
 				683B83792455179800C62578 /* AppDelegate.swift in Sources */,
 				66763C70247560140075E565 /* EmoticonManager.swift in Sources */,
 				660166652455BE1C0045779B /* MessageTableViewController.swift in Sources */,
