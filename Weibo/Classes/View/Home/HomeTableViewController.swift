@@ -63,7 +63,7 @@ class HomeTableViewController: VisitorTableViewController {
             vc.transitioningDelegate = self?.photoBrowserAnimator
             
             // 设置展现动画代理和相关参数
-            self?.photoBrowserAnimator.setPresentDelegateWithIndexPath(presentDelegate: cell, indexPath: indexPath as! IndexPath)
+            self?.photoBrowserAnimator.setDelegateWithIndexPath(presentDelegate: cell, indexPath: indexPath as! IndexPath, dismissDelegate: vc)
             // modal 展现
             self?.present(vc, animated: true, completion: nil)
         }

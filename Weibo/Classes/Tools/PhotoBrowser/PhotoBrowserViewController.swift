@@ -173,3 +173,28 @@ extension PhotoBrowserViewController: PhotoBrowserCellDelegate {
         closeButtonClick()
     }
 }
+
+extension PhotoBrowserViewController: PhotoBrowserDismissDelegate {
+    func imageViewForDismiss() -> UIImageView {
+        let iv = UIImageView()
+        // 设置填充模式
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        
+        // 设置图像，直接从当前的 cell 中获取
+        let cell = collectionView.visibleCells[0] as! PhotoBrowserCell
+        iv.image = cell.imageView.image
+        
+        // 设置位置，坐标转换
+        iv.frame = cell.convert(cell.imageView.frame, to: UIApplication.shared.keyWindow!)
+        
+        // 测试代码
+//        UIApplication.shared.keyWindow!.addSubview(iv)
+        
+        return iv
+    }
+    
+    func indexPathForDismiss() -> IndexPath {
+        return collectionView.indexPathsForVisibleItems[0]
+    }
+}

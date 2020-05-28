@@ -16,15 +16,23 @@ protocol PhotoBrowserPresentDelegate: NSObjectProtocol {
     func photoBrowserPresentFromRect(indexPath: IndexPath) -> CGRect
     // 动画转场的目标位置
     func photoBrowserPresentToRect(indexPath: IndexPath) -> CGRect
-    
-    
-    
 }
+
+// MARK: - 解除动画协议
+protocol PhotoBrowserDismissDelegate: NSObjectProtocol {
+    func imageViewForDismiss() -> UIImageView
+    func indexPathForDismiss() -> IndexPath
+}
+
 // 提供动画转场的代理
 class PhotoBrowserAnimator: NSObject, UIViewControllerTransitioningDelegate {
     
     // 展示动画代理
     weak var presentDelegate: PhotoBrowserPresentDelegate?
+    
+    // 解除动画代理
+    weak var dismissDelegate: PhotoBrowserDismissDelegate?
+    
     // 动画图像的索引
     var presentIndexPath: IndexPath?
     
@@ -32,9 +40,12 @@ class PhotoBrowserAnimator: NSObject, UIViewControllerTransitioningDelegate {
     private var isPresented = false
     
     // 设置代理和相关参数
-    func setPresentDelegateWithIndexPath(presentDelegate: PhotoBrowserPresentDelegate, indexPath: IndexPath) {
+    func setDelegateWithIndexPath(presentDelegate: PhotoBrowserPresentDelegate,
+                                  indexPath: IndexPath,
+                                  dismissDelegate: PhotoBrowserDismissDelegate) {
         self.presentDelegate = presentDelegate
         self.presentIndexPath = indexPath
+        self.dismissDelegate = dismissDelegate
     }
     
     // 返回提供 modal 展现的 动画对象
@@ -116,14 +127,29 @@ extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
     }
     
     private func dismissAnimation(transitionContext: UIViewControllerContextTransitioning) {
+        guard let pd = presentDelegate, let dd = dismissDelegate else {
+            return
+        }
+        
         // 获取要 dismiss 的控制器的根视图
         let fromView = transitionContext.view(forKey: .from)
+        fromView?.removeFromSuperview()
+        
+        // 获取图像视图
+        let iv = dd.imageViewForDismiss()
+        // 添加到容器视图
+        transitionContext.containerView.addSubview(iv)
+        
+        // 获取 dismiss 的 indexPath
+        let indexPath = dd.indexPathForDismiss()
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-            fromView!.alpha = 0
+            // 让 iv 运动到目标位置
+            iv.frame = pd.photoBrowserPresentFromRect(indexPath: indexPath)
+            
         }) { (_) in
-            // 将 fromView 从父视图中移除
-            fromView?.removeFromSuperview()
+            // 将 iv 从父视图中移除
+            iv.removeFromSuperview()
             // 告诉系统转场动画已完成
             transitionContext.completeTransition(true)
         }
