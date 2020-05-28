@@ -66,10 +66,14 @@ extension StatusPictureView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension StatusPictureView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // MARK: - 测试展现动画函数
+//        photoBrowserPresentFromRect(indexPath: indexPath)
+//        photoBrowserPresentToRect(indexPath: indexPath)
         let userInfo = [WBStatusSelectedPhotoIndexPathKey: indexPath, WBStatusSelectedPhotoURLsKey: viewModel!.thumbnailUrls!] as [String : Any]
         NotificationCenter.default.post(name: NSNotification.Name(WBStatusSelectedPhotoNotification),
                                         object: self,
                                         userInfo: userInfo)
+        
     }
 }
 
@@ -172,4 +176,71 @@ private class StatusPictureViewCell: UICollectionViewCell {
         }
         
     }
+}
+
+// MARK: - 照片查看器展现协议
+extension StatusPictureView: PhotoBrowserPresentDelegate {
+    func imageViewForPresent(indexPath: IndexPath) -> UIImageView {
+        let iv = UIImageView()
+        // 设置图像填充模式
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        
+        // 设置图像（使用缩略图缓存）SDWebImage 如果本地有缓存，则不会发起网络请求
+        if let url = viewModel?.thumbnailUrls?[indexPath.item] {
+            iv.sd_setImage(with: url as URL, completed: nil)
+        }
+        
+        return iv
+    }
+    
+    // 动画起始位置
+    func photoBrowserPresentFromRect(indexPath: IndexPath) -> CGRect {
+        let cell = cellForItem(at: indexPath)!
+        
+        /*
+         通过 cell 相对于 collection view 的位置，计算出 cell 相对于屏幕的位置
+         在不同视图之间的「坐标系转换」
+         */
+        let rect = self.convert(cell.frame, to: UIApplication.shared.keyWindow!)
+        // 测试 rect 的位置
+//        let v = imageViewForPresent(indexPath: indexPath)
+//        v.frame = rect
+//        UIApplication.shared.keyWindow!.addSubview(v)
+        
+        return rect
+    }
+    
+    // 动画目标位置
+    func photoBrowserPresentToRect(indexPath: IndexPath) -> CGRect {
+        // 根据缩略图大小，等比例计算目标位置
+        // 获取缩略图的key
+        guard let key = viewModel?.thumbnailUrls?[indexPath.item].absoluteString else {
+            return CGRect.zero
+        }
+        // SDWebImage 获取本地缓存图片
+        guard let image = SDImageCache.shared.imageFromDiskCache(forKey: key) else {
+            return CGRect.zero
+        }
+        
+        // 根据图片大小，计算全屏图像大小
+        let w = UIScreen.main.bounds.width
+        let h = image.size.height * w / image.size.width
+        
+        var y: CGFloat = 0
+        // 图片过短，垂直居中显示
+        let screenHeight = UIScreen.main.bounds.height
+        if h < screenHeight {
+            y = (screenHeight - h) * 0.5
+        }
+        
+        let rect = CGRect(x: 0, y: y, width: w, height: h)
+        // 测试 rect 的位置
+//        let v = imageViewForPresent(indexPath: indexPath)
+//        v.frame = rect
+//        UIApplication.shared.keyWindow!.addSubview(v)
+        return rect
+    }
+    
+    
 }

@@ -51,11 +51,19 @@ class HomeTableViewController: VisitorTableViewController {
                 return
             }
             
+            // 判断 cell 是否遵守了 PhotoBrowserPresentDelegate 展现动画协议
+            guard let cell = notification.object as? PhotoBrowserPresentDelegate else {
+                return
+            }
+            
             let vc = PhotoBrowserViewController(urls: urls as! [URL], indexPath: indexPath as! IndexPath)
             // 设定 modal 的转场（动画）类型是自定义类型
             vc.modalPresentationStyle = .custom
             // 设置动画代理
             vc.transitioningDelegate = self?.photoBrowserAnimator
+            
+            // 设置展现动画代理和相关参数
+            self?.photoBrowserAnimator.setPresentDelegateWithIndexPath(presentDelegate: cell, indexPath: indexPath as! IndexPath)
             // modal 展现
             self?.present(vc, animated: true, completion: nil)
         }
@@ -123,6 +131,7 @@ extension HomeTableViewController {
             pullUpView.startAnimating()
             loadData()
         }
+        
         return cell
     }
     

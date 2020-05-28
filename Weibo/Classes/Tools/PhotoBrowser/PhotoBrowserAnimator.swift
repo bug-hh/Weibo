@@ -8,11 +8,34 @@
 
 import UIKit
 
+// MARK: - 展现动画协议
+protocol PhotoBrowserPresentDelegate: NSObjectProtocol {
+    //  指定 indexPath 对应的 imageView，用来做动画效果
+    func imageViewForPresent(indexPath: IndexPath) -> UIImageView
+    // 动画转场的起始位置
+    func photoBrowserPresentFromRect(indexPath: IndexPath) -> CGRect
+    // 动画转场的目标位置
+    func photoBrowserPresentToRect(indexPath: IndexPath) -> CGRect
+    
+    
+    
+}
 // 提供动画转场的代理
 class PhotoBrowserAnimator: NSObject, UIViewControllerTransitioningDelegate {
     
+    // 展示动画代理
+    weak var presentDelegate: PhotoBrowserPresentDelegate?
+    // 动画图像的索引
+    var presentIndexPath: IndexPath?
+    
     // 是否 modal 展现的标记
     private var isPresented = false
+    
+    // 设置代理和相关参数
+    func setPresentDelegateWithIndexPath(presentDelegate: PhotoBrowserPresentDelegate, indexPath: IndexPath) {
+        self.presentDelegate = presentDelegate
+        self.presentIndexPath = indexPath
+    }
     
     // 返回提供 modal 展现的 动画对象
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -33,7 +56,7 @@ class PhotoBrowserAnimator: NSObject, UIViewControllerTransitioningDelegate {
 extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
     // 返回动画时长
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 2
+        return 1
     }
     
     // 实现具体的动画效果, 一旦实现了此方法，所有动画代码都交由程序员负责
@@ -65,16 +88,28 @@ extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
     }
     
     private func presentAnimation(transitionContext: UIViewControllerContextTransitioning) {
+        // 判断展示代理是否存在
+        guard let pd = presentDelegate, let indexPath = presentIndexPath else {
+            return
+        }
+        
         // 获取 modal 要展现的控制器的根视图
         let toView = transitionContext.view(forKey: .to)
         // 将要展示的视图添加到容器视图中
         transitionContext.containerView.addSubview(toView!)
+        
+        // 获取缩略图
+        let iv = pd.imageViewForPresent(indexPath: indexPath)
+        // 设置缩略图相对于整个屏幕的位置
+        iv.frame = pd.photoBrowserPresentFromRect(indexPath: indexPath)
         
         toView!.alpha = 0
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             toView!.alpha = 1
         }) { (_) in
+            // 将图像视图移除
+            iv.removeFromSuperview()
             // 告诉系统转场动画已完成
             transitionContext.completeTransition(true)
         }
