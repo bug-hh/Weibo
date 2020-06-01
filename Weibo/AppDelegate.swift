@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = notification.object != nil ? WelcomeViewController() : MainViewController()
             self?.window?.rootViewController = vc
         }
+        SQLiteManager.sharedManager
         return true
     }
 
