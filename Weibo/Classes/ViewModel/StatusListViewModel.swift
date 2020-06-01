@@ -23,21 +23,13 @@ class StatusListViewModel {
         let since_id = isPullup ? 0 : (statusList.first?.status.id ?? 0)
         let max_id = isPullup ? (statusList.last?.status.id ?? 0) : 0
         
-        NetTools.sharedTools.loadStatus(since_id: since_id, max_id: max_id) { (result, error) in
-            if error != nil {
+        // 检查本队是否存在数据库缓存
+        StatusDAL.loadStatus(since_id: since_id, max_id: max_id) { (arr) in
+            guard let array = arr else {
                 finish(false)
                 return
             }
-            
-            let resultDict = result as? [String: Any?]
-            guard let array = resultDict?["statuses"] as? [[String: Any?]] else {
-                finish(false)
-                return
-            }
-            
-            // 缓存网络数据
-            StatusDAL.saveCacheData(arr: array)
-            
+        
             var arrayList = [StatusWeiboViewModel]()
             for dict in array {
                 let s = StatusWeiboViewModel(status: Status(dict: dict))

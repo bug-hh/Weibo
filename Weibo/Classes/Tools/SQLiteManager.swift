@@ -41,4 +41,24 @@ class SQLiteManager {
         }
     }
     
+    func execRecordSet(sql: String) -> [[String: Any]] {
+        var ret = [[String: Any]]()
+        SQLiteManager.sharedManager.queue.inDatabase { (db) in
+            guard let rs = db.executeQuery(sql, withArgumentsIn: []) else {
+                return
+            }
+            
+            while rs.next() {
+                let cols = rs.columnCount
+                var dict = [String: Any]()
+                for col in 0..<cols {
+                    let name = rs.columnName(for: col)
+                    let obj = rs.object(forColumnIndex: col)
+                    dict[name!] = obj
+                }
+                ret.append(dict)
+            }
+        }
+        return ret
+    }
 }

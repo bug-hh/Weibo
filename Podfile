@@ -10,5 +10,5 @@ target 'Weibo' do
   pod 'SDWebImage'
   pod 'SVProgressHUD'
   pod 'SnapKit'
-  pod 'FMDB'
+  # pod 'FMDB'
 end
