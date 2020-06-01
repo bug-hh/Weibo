@@ -35,6 +35,9 @@ class StatusListViewModel {
                 return
             }
             
+            // 缓存网络数据
+            StatusDAL.saveCacheData(arr: array)
+            
             var arrayList = [StatusWeiboViewModel]()
             for dict in array {
                 let s = StatusWeiboViewModel(status: Status(dict: dict))

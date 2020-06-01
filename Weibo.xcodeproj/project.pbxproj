@@ -60,6 +60,7 @@
 		68BF4F3C2484809D00B94318 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BF4F372484809C00B94318 /* FMResultSet.m */; };
 		68BF4F3F2484818200B94318 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF4F3E2484818200B94318 /* SQLiteManager.swift */; };
 		68BF4F432484829900B94318 /* db.sql in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F422484829900B94318 /* db.sql */; };
+		68BF4F45248488C600B94318 /* StatusDAL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF4F44248488C600B94318 /* StatusDAL.swift */; };
 		68C5A8E3247CA96600C52256 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E2247CA96600C52256 /* UIColor+Extension.swift */; };
 		68C5A8E5247CAB5000C52256 /* PhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E4247CAB5000C52256 /* PhotoBrowserCell.swift */; };
 		68C5A8E7247DEBCC00C52256 /* ProgressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C5A8E6247DEBCC00C52256 /* ProgressImageView.swift */; };
@@ -131,6 +132,7 @@
 		68BF4F3E2484818200B94318 /* SQLiteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		68BF4F402484820500B94318 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		68BF4F422484829900B94318 /* db.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = db.sql; sourceTree = "<group>"; };
+		68BF4F44248488C600B94318 /* StatusDAL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusDAL.swift; sourceTree = "<group>"; };
 		68C5A8E2247CA96600C52256 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		68C5A8E4247CAB5000C52256 /* PhotoBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserCell.swift; sourceTree = "<group>"; };
 		68C5A8E6247DEBCC00C52256 /* ProgressImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressImageView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				6886018B245D8E8500DB6D92 /* UserAccountViewModel.swift */,
 				66989BD42462D96700CC45F6 /* StatusListViewModel.swift */,
 				66989BD82462F56300CC45F6 /* StatusWeiboViewModel.swift */,
+				68BF4F44248488C600B94318 /* StatusDAL.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				669B5B9E24740D150080D305 /* ComposeViewController.swift in Sources */,
 				68BF4F3A2484809C00B94318 /* FMDatabase.m in Sources */,
 				66763C73247560140075E565 /* Emoticon.swift in Sources */,
+				68BF4F45248488C600B94318 /* StatusDAL.swift in Sources */,
 				68BF4F382484809C00B94318 /* FMDatabaseQueue.m in Sources */,
 				660166612455BD7C0045779B /* MainViewController.swift in Sources */,
 				6652717C246AD3D8006B0D9D /* StatusRetweetedCell.swift in Sources */,

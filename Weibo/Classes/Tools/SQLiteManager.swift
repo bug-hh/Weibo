@@ -23,6 +23,7 @@ class SQLiteManager {
         print(path)
         // 打开数据库队列
         queue = FMDatabaseQueue(path: path)!
+        createTalbe()
     }
     
     private func createTalbe() {
