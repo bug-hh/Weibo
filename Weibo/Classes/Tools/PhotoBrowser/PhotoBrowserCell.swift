@@ -11,7 +11,10 @@ import SDWebImage
 import SVProgressHUD
 
 protocol PhotoBrowserCellDelegate: NSObjectProtocol {
-    func photoBrowserCellDidTapImage()
+    // 视图控制器将要关闭
+    func photoBrowserCellShouldDismiss()
+    // 通知代理缩放的比例
+    func photoBrowserCellDidZoom(scale: CGFloat)
 }
 
 class PhotoBrowserCell: UICollectionViewCell {
@@ -156,7 +159,7 @@ class PhotoBrowserCell: UICollectionViewCell {
 extension PhotoBrowserCell {
     @objc private func tapImage() {
         print("关闭图像")
-        delegate?.photoBrowserCellDidTapImage()
+        delegate?.photoBrowserCellShouldDismiss()
     }
     
 }
@@ -169,7 +172,11 @@ extension PhotoBrowserCell: UIScrollViewDelegate {
     // 该方法在缩放完成后执行一次
     // view: 被缩放的视图
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        print("缩放完成")
+        // 如果缩放比例 < 1,直接关闭
+        if scale < 1 {
+            delegate?.photoBrowserCellShouldDismiss()
+            return
+        }
         
         var offSetY = (scrollView.bounds.height - view!.frame.height) * 0.5
         offSetY = offSetY < 0 ? 0 : offSetY
@@ -188,6 +195,7 @@ extension PhotoBrowserCell: UIScrollViewDelegate {
      tx，ty 设置位移
      */
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        print(imageView.transform)
+        delegate?.photoBrowserCellDidZoom(scale: imageView.transform.a)
+//        print(imageView.transform)
     }
 }

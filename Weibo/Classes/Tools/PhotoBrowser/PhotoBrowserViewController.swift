@@ -60,7 +60,7 @@ class PhotoBrowserViewController: UIViewController {
     }
     
     // 懒加载控件
-    private lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PhotoBrowserViewLayout())
+    lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PhotoBrowserViewLayout())
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setTitle("关闭", for: .normal)
@@ -169,8 +169,31 @@ extension PhotoBrowserViewController: UICollectionViewDataSource {
 
 // MARK: - PhotoBrowserCellDelegate
 extension PhotoBrowserViewController: PhotoBrowserCellDelegate {
-    func photoBrowserCellDidTapImage() {
+    func photoBrowserCellShouldDismiss() {
         closeButtonClick()
+    }
+    
+    func photoBrowserCellDidZoom(scale: CGFloat) {
+        let isHidden = scale < 1
+        hiddenControls(isHidden: isHidden)
+        
+        if scale < 1 {
+            // 跟进 scale 修改根视图的的透明度 & 缩放比例
+            view.alpha = scale
+            view.transform = CGAffineTransform.identity
+        } else {
+            view.alpha = 1.0
+            view.transform = CGAffineTransform.identity
+            
+        }
+    }
+    
+    
+    private func hiddenControls(isHidden: Bool) {
+        closeButton.isHidden = isHidden
+        saveButton.isHidden = isHidden
+        
+        collectionView.backgroundColor = isHidden ? UIColor.clear : UIColor.black
     }
 }
 

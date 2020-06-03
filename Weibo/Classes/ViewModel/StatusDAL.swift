@@ -8,8 +8,31 @@
 
 import Foundation
 
+private let maxCacheDateTime: TimeInterval = 60 // 7 * 24 * 60 * 60
+
 // 数据访问层，专门负责处理本地 sqlite 和网络数据
 class StatusDAL {
+    
+    class func clearDataCache() {
+        let date = Date(timeIntervalSinceNow: maxCacheDateTime)
+        // 日期格式转换
+        let df = DateFormatter()
+        // 指定区域 - 在模拟器上不需要，但是真机一定需要
+        df.locale = Locale(identifier: "en")
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let dateStr = df.string(from: date)
+        print(dateStr)
+        
+        //执行 sql
+        let sql = "DELETE FROM T_Status WHERE createTime < ?;"
+        
+        SQLiteManager.sharedManager.queue.inTransaction { (db, rollback) in
+            if db.executeUpdate(sql, withArgumentsIn: [dateStr]) {
+                print("删除了 \(db.changes) 条缓存数据")
+            }
+        }
+    }
     
     class func loadStatus(since_id: Int, max_id: Int, finish: @escaping ([[String: Any]]?) -> ()) {
         // 1、检查本地是否有缓存
