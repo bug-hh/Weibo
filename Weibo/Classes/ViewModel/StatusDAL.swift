@@ -46,7 +46,7 @@ class StatusDAL {
         }
         
         // 3、如果没有，加载网络数据
-        NetTools.sharedTools.loadStatus(since_id: since_id, max_id: max_id) { (result, error) in
+        NetToolsUsingAlamfire.sharedTools.loadStatus(since_id: since_id, max_id: max_id) { (result, error) in
             if error != nil {
                 finish(nil)
                 return

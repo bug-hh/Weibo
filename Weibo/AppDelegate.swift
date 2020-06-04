@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
+        // 设置 AFN - 当通过 AFN 发起网络请求是，会在状态栏显示菊花
+        AFNetworkActivityIndicatorManager.shared().isEnabled = true
+        
         setupAppearance()
         window?.backgroundColor = UIColor.white
         window?.rootViewController = defaultRootViewController

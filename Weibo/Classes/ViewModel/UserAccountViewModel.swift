@@ -55,7 +55,11 @@ class UserAccountViewModel {
     }
     
     func loadAccessToken(code: String, finish: @escaping (_ isSuccessed: Bool) -> ()) {
-        NetTools.sharedTools.accessToken(code: String(code)) { (result, error) in
+        /*
+         AFNetworking: NetTools.sharedTools
+         Alamofire: NetToolsUsingAlamofire.sharedTools
+         */
+        NetToolsUsingAlamfire.sharedTools.accessToken(code: String(code)) { (result, error) in
             if error != nil {
                 finish(false)
                 return
@@ -69,7 +73,7 @@ class UserAccountViewModel {
     }
     
     private func loadUserInfo(userAccount: UserAccount, finish: @escaping (_ isSuccessed: Bool) -> ()) {
-        NetTools.sharedTools.loadUserInfo(uid: userAccount.uid!) { (result, error) in
+        NetToolsUsingAlamfire.sharedTools.loadUserInfo(uid: userAccount.uid!) { (result, error) in
             if error != nil {
                 finish(false)
                 return

@@ -27,7 +27,7 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.navigationDelegate = self
-        webView.load(URLRequest(url: NetTools.sharedTools.oauthURL))
+        webView.load(URLRequest(url: NetToolsUsingAlamfire.sharedTools.oauthURL))
     }
     
     override func loadView() {
