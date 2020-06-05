@@ -18,8 +18,7 @@ class StatusCellTopView: UIView {
             vipIcon.image = viewModel?.userVipIcon
             
             timeLabel.text = viewModel?.created_at
-            // TODO
-            sourceLabel.text = "HH 微博"//viewModel?.status.source
+            sourceLabel.text = viewModel?.status.source
         }
     }
     

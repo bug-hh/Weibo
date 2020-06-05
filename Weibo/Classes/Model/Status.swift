@@ -16,7 +16,13 @@ class Status: NSObject {
     // 微博创建时间
     @objc var created_at: String?
     // 微博来源
-    @objc var source: String?
+    @objc var source: String? {
+        didSet {
+            // 过滤出文本，并重新设置 source
+            // 注意，在 didSet 内部重新给属性设置数值后，不会再次调用 didSet
+            source = source?.href()?.text
+        }
+    }
     // 用户模型
     @objc var user: User?
     
