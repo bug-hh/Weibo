@@ -12,6 +12,8 @@ import SDWebImage
 class StatusListViewModel {
     lazy var statusList = [StatusWeiboViewModel]()
     
+    var pullDownCount: Int?
+    
     /**
          加载微博数据
        * parameter isPullup   是否上拉刷新
@@ -35,6 +37,10 @@ class StatusListViewModel {
                 let s = StatusWeiboViewModel(status: Status(dict: dict))
                 arrayList.append(s)
             }
+            print("刷新到 \(arrayList.count) 条数据")
+            // 记录下拉刷新的数据条数
+            self.pullDownCount = (since_id > 0) ? arrayList.count : nil
+            
             // 如果是下拉刷新，那么将最新的数据拼接在最前面
             if since_id > 0 {
                 self.statusList = arrayList + self.statusList

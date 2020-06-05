@@ -16,8 +16,13 @@ class StatusCellTopView: UIView {
             iconView.sd_setImage(with: viewModel?.userIconUrl, placeholderImage: viewModel?.defaultIconImage, options: [], context: nil)
             memberIcon.image = viewModel?.userMemberIcon
             vipIcon.image = viewModel?.userVipIcon
+            
+            timeLabel.text = viewModel?.created_at
+            // TODO
+            sourceLabel.text = "HH 微博"//viewModel?.status.source
         }
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

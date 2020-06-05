@@ -25,6 +25,15 @@ class HomeTableViewController: VisitorTableViewController {
         return indicator
     }()
     
+    // 懒加载下拉刷新提示控件
+    private lazy var pullDownTipLabel: UILabel = {
+        let label = UILabel(text: "", fontSize: 18, textColor: .white)
+        label.backgroundColor = .orange
+        
+        navigationController?.navigationBar.insertSubview(label, at: 0)
+        return label
+    }()
+    
     private var dataList: [Status]?
     
     override func viewDidLoad() {
@@ -106,11 +115,37 @@ class HomeTableViewController: VisitorTableViewController {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
                 return
             }
+            
+            // 显示下拉刷新提示
+            self.showPullDownTip()
+            
             // 加载数据
             self.tableView.reloadData()
         }
-
+    }
+    
+    // 显示下拉刷新提示
+    private func showPullDownTip() {
+        // 如果不是下拉刷新，则直接返回
+        guard let count = listViewModel.pullDownCount else {
+            return
+        }
+        print("下拉刷新 \(count)")
+        let message = count > 0 ? "没有新微博" : "刷新到 \(count) 条微博"
+        pullDownTipLabel.text = message
+       
         
+        let height: CGFloat = 44
+        let rect = CGRect(x: 0, y: 0, width: view.bounds.width, height: height)
+        pullDownTipLabel.frame = rect.offsetBy(dx: 0, dy: -2 * height)
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.pullDownTipLabel.frame = rect.offsetBy(dx: 0, dy: height)
+        }) { (_) in
+            UIView.animate(withDuration: 1.0) {
+                self.pullDownTipLabel.frame = rect.offsetBy(dx: 0, dy: -2 * height)
+            }
+        }
     }
 
 }

@@ -14,7 +14,7 @@ class Status: NSObject {
     // 微博内容
     @objc var text: String?
     // 微博创建时间
-    @objc var create_at: String?
+    @objc var created_at: String?
     // 微博来源
     @objc var source: String?
     // 用户模型
@@ -51,7 +51,7 @@ class Status: NSObject {
     }
     
     override var description: String {
-        let keys = ["id", "text", "create_at", "source", "user", "pic_urls", "retweeted_status"]
+        let keys = ["id", "text", "created_at", "source", "user", "pic_urls", "retweeted_status"]
         return dictionaryWithValues(forKeys: keys).description
     }
 

@@ -143,6 +143,9 @@ extension StatusPictureView {
 }
 
 private class StatusPictureViewCell: UICollectionViewCell {
+    //  提示图片是否为 GIF
+    private lazy var gifIconView: UIImageView = UIImageView(imageName: "timeline_image_gif")
+    
     private lazy var iconView: UIImageView = {
         var iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -153,8 +156,12 @@ private class StatusPictureViewCell: UICollectionViewCell {
     
     var imageUrl: NSURL? {
         didSet {
-            iconView.sd_setImage(with: imageUrl as URL?, placeholderImage: nil, options: [.retryFailed,  // SDWebImage 超时时长为 15s，一旦超时，则计入黑名单，加入这个选项后，则不会加入嘿名单
-                                                                                  .refreshCached]) // 当服务器 url 没变，但是 url 所指图像变化时，会重新下载图片
+            iconView.sd_setImage(with: imageUrl as URL?,
+                                 placeholderImage: nil,
+                                 options: [.retryFailed,  // SDWebImage 超时时长为 15s，一旦超时，则计入黑名单，加入这个选项后，则不会加入嘿名单
+                                .refreshCached]) // 当服务器 url 没变，但是 url 所指图像变化时，会重新下载图片
+            let ext = ((imageUrl?.absoluteString ?? "") as NSString).pathExtension.lowercased()
+            gifIconView.isHidden = ext != "gif"
                                  
         }
     }
@@ -170,9 +177,16 @@ private class StatusPictureViewCell: UICollectionViewCell {
     private func setupUI() {
         // 添加控件
         contentView.addSubview(iconView)
+        iconView.addSubview(gifIconView)
+        
         // 设置自动布局, 因为 cell 会变化，不同的cell 大小可能不一样
         iconView.snp.makeConstraints { (make) in
             make.edges.equalTo(contentView.snp.edges)
+        }
+        
+        gifIconView.snp.makeConstraints { (make) in
+            make.right.equalTo(iconView.snp.right)
+            make.bottom.equalTo(iconView.snp.bottom)
         }
         
     }

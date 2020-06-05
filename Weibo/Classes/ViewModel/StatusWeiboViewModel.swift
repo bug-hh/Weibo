@@ -31,6 +31,11 @@ class StatusWeiboViewModel: NSObject {
         return cell.rowHeight(vm: self)
     }()
     
+    // 微博发布日期 - 计算型属性
+    var created_at: String? {
+        return Date.sinaDate(str: status.created_at ?? "")?.dateDescription
+    }
+    
     var userIconUrl: URL? {
         return URL(string: status.user?.profile_image_url ?? "")
     }
