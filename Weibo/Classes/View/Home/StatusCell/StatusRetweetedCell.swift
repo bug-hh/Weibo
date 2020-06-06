@@ -21,7 +21,9 @@ class StatusRetweetedCell: StatusCell {
      */
     override var viewModel: StatusWeiboViewModel? {
         didSet {
-            retweetedLabel.text = viewModel?.retweetedText
+            let text = viewModel?.retweetedText ?? ""
+            retweetedLabel.attributedText = EmoticonManager.sharedManager.emoticonText(string: text, font: retweetedLabel.font)
+            
             // 设置配图的 视图模型
             pictureView.viewModel = viewModel
             // 动态修改「配图视图」高度, 在指定约束后，如果控件的实际大小变了，那么就根据「控件的实际大小」更新约束
