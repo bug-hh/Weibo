@@ -22,6 +22,8 @@ class Emoticon: NSObject {
     
     @objc var isRemoved: Bool = false
     
+    // 表情使用次数
+    var times = 0
     var isEmpty: Bool = false
     
     // emoji 字符串

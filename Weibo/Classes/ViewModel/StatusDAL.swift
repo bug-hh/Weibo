@@ -33,6 +33,7 @@ class StatusDAL {
             }
         }
     }
+    // TODO: 解决重复微博的问题，实现「转发」、评论、点赞功能
     
     class func loadStatus(since_id: Int, max_id: Int, finish: @escaping ([[String: Any]]?) -> ()) {
         // 1、检查本地是否有缓存

@@ -125,7 +125,7 @@ private extension EmojiView {
     }
     
     func prepareCollectionView() {
-        emojiCollectionView.backgroundColor = .lightGray
+        emojiCollectionView.backgroundColor = .white
         emojiCollectionView.register(EmojiCell.self, forCellWithReuseIdentifier: EmojiCellID)
         emojiCollectionView.dataSource = self
         emojiCollectionView.delegate = self
@@ -157,6 +157,11 @@ extension EmojiView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let em = packages[indexPath.section].emoticons[indexPath.item]
         emojiCallBack(em)
+        // 添加最近表情
+        // 最近表情不参与排序
+        if indexPath.section > 0 {
+            EmoticonManager.sharedManager.addRecent(em: em)
+        }
     }
     
 }

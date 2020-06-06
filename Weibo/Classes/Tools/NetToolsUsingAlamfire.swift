@@ -145,8 +145,11 @@ extension NetToolsUsingAlamfire {
     
 //    新版的Swift闭包做参数默认是@noescaping，不再是@escaping。所以如果函数里异步执行该闭包，要添加@escaping。
     func request(method: HTTPMethod, url: String, parameters: [String: Any]?, finish: @escaping HHRequestCallBack) {
+        // 显示网络指示菊花
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         Alamofire.request(url, method: method, parameters: parameters).responseJSON { (response) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if response.result.isFailure {
                 print("网络请求失败 \(response.result.error)")
             }
@@ -155,6 +158,9 @@ extension NetToolsUsingAlamfire {
     }
     
     func upload(url: String, data: Data, name: String, parameters: inout [String: Any], finish: @escaping HHRequestCallBack) {
+        // 显示网络指示菊花
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         // 将 token 参数添加到 parameters 字典
         // 判断 token 是否有效
         if !appendToken(parameters: &parameters) {
@@ -178,6 +184,9 @@ extension NetToolsUsingAlamfire {
         let pt = parameters
         Alamofire.upload(
             multipartFormData: { (formData) in
+                // 关闭网络指示菊花
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
                 /*
                  append 方法中，带 mimeType 的是拼接上传文件的方法
                  append 方法中，不带 mineType 的是拼接普通二进制数据的方法
