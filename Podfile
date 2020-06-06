@@ -11,4 +11,5 @@ target 'Weibo' do
   pod 'SVProgressHUD'
   pod 'SnapKit'
   pod 'Alamofire'
+  pod 'FFLabel'
 end

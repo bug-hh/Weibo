@@ -7,16 +7,25 @@
 //
 
 import UIKit
+import FFLabel
 
 let StatusCellMargin = 15
 let StatusCellIconWidth = 35
 
+// MARK: - 微博 Cell 代理
+protocol StatusCellDelegate: NSObjectProtocol {
+    // 点击 微博 cell 中的 url 响应方法
+    func statusCellDidClickUrl(url: URL)
+}
+
 class StatusCell: UITableViewCell {
 
+    weak var cellDelegate: StatusCellDelegate?
+    
     // 顶部视图，包含用户头像、微博等级，等等
     private lazy var statusTopView: StatusCellTopView = StatusCellTopView()
     // 微博文字
-    lazy var statusLabel: UILabel = UILabel(text: "微博正文", fontSize: 15, screenInset: CGFloat(StatusCellMargin))
+    lazy var statusLabel: FFLabel = FFLabel(text: "微博正文", fontSize: 15, screenInset: CGFloat(StatusCellMargin))
     // 微博图片
     lazy var pictureView: StatusPictureView = StatusPictureView()
     // 底部视图：转发，评论，点赞
@@ -99,6 +108,8 @@ extension StatusCell {
 //            make.height.equalTo(90)
 //        }
         
+        statusLabel.labelDelegate = self
+        
         statusBottomView.snp.makeConstraints { (make) in
             make.top.equalTo(pictureView.snp.bottom).offset(StatusCellMargin)
             make.left.equalTo(contentView.snp.left)
@@ -110,10 +121,21 @@ extension StatusCell {
 //            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
-    
-    
-    
-    
+}
+
+// MARK: - FFLabelDelegate
+extension StatusCell: FFLabelDelegate {
+    func labelDidSelectedLinkText(label: FFLabel, text: String) {
+        if text.hasPrefix("http://") {
+            guard let url = URL(string: text) else {
+                return
+            }
+            
+            cellDelegate?.statusCellDidClickUrl(url: url)
+            
+        }
+        
+    }
 }
 
 

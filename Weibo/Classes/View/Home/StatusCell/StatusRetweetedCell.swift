@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FFLabel
 //let StatusRetweetedCellID = "StatusRetweetedCellID"
 
 class StatusRetweetedCell: StatusCell {
@@ -42,8 +42,8 @@ class StatusRetweetedCell: StatusCell {
     }()
 
     // 转发标签
-    private lazy var retweetedLabel: UILabel = {
-        let label = UILabel(text: "转发微博", fontSize: 14, textColor: .darkGray, screenInset: CGFloat(StatusCellMargin))
+    private lazy var retweetedLabel: FFLabel = {
+        let label = FFLabel(text: "转发微博", fontSize: 14, textColor: .darkGray, screenInset: CGFloat(StatusCellMargin))
         return label
     }()
     
@@ -72,7 +72,9 @@ extension StatusRetweetedCell {
              make.left.equalTo(retweetedLabel.snp.left)
              make.width.equalTo(300)
              make.height.equalTo(90)
-         }
+        }
+        
+        retweetedLabel.labelDelegate = self
     }
 }
 

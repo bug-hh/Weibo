@@ -166,11 +166,23 @@ extension HomeTableViewController {
             pullUpView.startAnimating()
             loadData()
         }
-        
+        cell.cellDelegate = self
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return listViewModel.statusList[indexPath.row].rowHeight
+    }
+}
+
+// MARK: - StatusCellDelegate
+extension HomeTableViewController: StatusCellDelegate {
+    func statusCellDidClickUrl(url: URL) {
+        // 建立 webview 控制器
+        let vc = HomeWebViewController(url: url)
+        // 跳转 webview 后，隐藏 tab bar
+        vc.hidesBottomBarWhenPushed = true
+        // 如果当前控制器与要跳转的控制器存在某种联系时，用 push
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
