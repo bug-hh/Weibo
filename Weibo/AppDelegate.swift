@@ -8,9 +8,10 @@
 
 import UIKit
 import AFNetworking
+import SVProgressHUD
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
 
     var window: UIWindow?
 
@@ -20,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        WeiboSDK.enableDebugMode(true)
+        WeiboSDK.registerApp(appKey)
+        
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         // 设置 AFN - 当通过 AFN 发起网络请求是，会在状态栏显示菊花
@@ -98,5 +102,54 @@ extension AppDelegate {
         UserDefaults.standard.set(version, forKey: sandBoxVersionKey)
         return version > sandBoxVersion
     }
+}
+
+// MARK: - WeiboSDKDelegate
+extension AppDelegate {
+    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
+        
+    }
+    
+    
+    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
+        if response .isKind(of: WBAuthorizeResponse.self) {
+            print("接收到 weibo SSO 授权响应")
+            let res = response as! WBAuthorizeResponse
+            let dt: [String: Any?] = ["access_token": res.accessToken,
+                      "expireDate": res.expirationDate,
+                      "uid": res.userID]
+            print(res.userID)
+            let userAccount = UserAccount(dict: dt as [String : Any])
+            UserAccountViewModel.sharedViewModel.userAccount = userAccount
+            UserAccountViewModel.sharedViewModel.loadUserInfo(userAccount: userAccount) { (isSuccessed: Bool) in
+                if !isSuccessed {
+                    print("获取 user info 失败")
+                    SVProgressHUD.showInfo(withStatus: "获取 user info 失败")
+                    return
+                }
+
+                // 关闭指示器
+                SVProgressHUD.dismiss()
+                // 登录完成以后，同时在销毁 OAuthViewController 以后，才发送通知，将控制器换成 newfeature viewcontroller
+                // 通知中心是同步的，一旦发送通知，会先执行监听方法，结束后，才继续往后执行
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBSwitchRootViewControllerNotification),
+                object: "welcome")
+
+            }
+        }
+    }
+}
+
+// MARK: - 处理「微博客户端」调起本应用
+extension AppDelegate {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return WeiboSDK.handleOpen(url, delegate: self)
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        return WeiboSDK.handleOpen(url, delegate: self)
+    }
+    
+    
 }
 

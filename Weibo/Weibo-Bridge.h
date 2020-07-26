@@ -7,3 +7,5 @@
 //
 
 #import "FMDB.h"
+#import <WeiboSDK.h>
+#import <WBHttpRequest.h>

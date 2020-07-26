@@ -16,8 +16,8 @@ enum HHRequestMethod: String {
 }
 
 class NetTools: AFHTTPSessionManager {
-    let appKey = "3305836468"
-    let appSecret = "e75ef60521e249f5dd2882d288c98907"
+    let appKey = "1544083852"
+    let appSecret = "4b58f11df38687b482d0813696ba7e86"
     let redirectUrl = "https://bug-hh.github.io/bughh.github.io/"
     
     // 网络请求回调，类似于 OC 的 typedef

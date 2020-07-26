@@ -58,7 +58,6 @@ class StatusDAL {
                 finish(nil)
                 return
             }
-            
             // 4、将网络返回的数据，保存在本地数据库，以便后续使用
             StatusDAL.saveCacheData(arr: array)
             

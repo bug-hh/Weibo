@@ -44,9 +44,10 @@ class VisitorTableViewController: UITableViewController, VisitorDelegate {
     
     @objc func login() {
         print("登录")
-        let oauthVC = OAuthViewController()
-        let nav = UINavigationController(rootViewController: oauthVC)
-        present(nav, animated: true, completion: nil)
+        WeiboTools.sharedTools.ssoLogin()
+//        let oauthVC = OAuthViewController()
+//        let nav = UINavigationController(rootViewController: oauthVC)
+//        present(nav, animated: true, completion: nil)
     }
     
     

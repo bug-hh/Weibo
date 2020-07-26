@@ -72,7 +72,7 @@ class UserAccountViewModel {
         }
     }
     
-    private func loadUserInfo(userAccount: UserAccount, finish: @escaping (_ isSuccessed: Bool) -> ()) {
+    func loadUserInfo(userAccount: UserAccount, finish: @escaping (_ isSuccessed: Bool) -> ()) {
         NetToolsUsingAlamfire.sharedTools.loadUserInfo(uid: userAccount.uid!) { (result, error) in
             if error != nil {
                 finish(false)

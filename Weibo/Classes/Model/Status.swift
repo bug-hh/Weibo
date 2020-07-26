@@ -31,6 +31,15 @@ class Status: NSObject {
     // 被转发的原微博信息字段
     @objc var retweeted_status: Status?
     
+    // 每条微博的评论数
+    @objc var comments_count: Int = 0
+    
+    // 每条微博被转发的次数
+    @objc var reposts_count: Int = 0
+    
+    // 每条微博点赞数
+    @objc var attitudes_count: Int = 0
+    
     init(dict: [String: Any?]) {
         super.init()
         // 如果使用 KVC, 如果 value 是一个字典，那么会将对应属性，直接转换成字典
@@ -57,7 +66,8 @@ class Status: NSObject {
     }
     
     override var description: String {
-        let keys = ["id", "text", "created_at", "source", "user", "pic_urls", "retweeted_status"]
+        let keys = ["id", "text", "created_at", "source", "user", "pic_urls", "retweeted_status", "comments_count", "reposts_count", "attitudes_count"]
+        
         return dictionaryWithValues(forKeys: keys).description
     }
 

@@ -34,6 +34,7 @@ class StatusCell: UITableViewCell {
     var viewModel: StatusWeiboViewModel? {
         didSet {
             statusTopView.viewModel = viewModel!
+            statusBottomView.viewModel = viewModel!
             
             let text = viewModel?.status.text ?? ""
             statusLabel.attributedText = EmoticonManager.sharedManager.emoticonText(string: text, font: statusLabel.font)

@@ -23,6 +23,37 @@ class StatusCellBottomView: UIView {
     private lazy var commentButton: UIButton = UIButton(foregroundImageName: "timeline_icon_comment", title: " 评论")
     private lazy var likeButton: UIButton = UIButton(foregroundImageName: "timeline_icon_unlike", title: " 赞")
     
+    var viewModel: StatusWeiboViewModel? {
+        didSet {
+            guard let vm = viewModel else {
+                print("为空")
+                retweetButton.titleLabel?.text = "转发"
+                commentButton.titleLabel?.text = "评论"
+                likeButton.titleLabel?.text = "赞"
+                return
+            }
+            print("点赞数: \(vm.status.attitudes_count)")
+            retweetButton.titleLabel?.text = "\(self.recalculate(num: vm.status.reposts_count))"
+            commentButton.titleLabel?.text = "\(self.recalculate(num:vm.status.comments_count))"
+            likeButton.titleLabel?.text = "\(self.recalculate(num:vm.status.attitudes_count))"
+        }
+    }
+    
+    /*
+     0 < num < 1000 return "num"
+     1000 < num < 10000 return "\(num / 1000)k"
+     10000 < num  return "\(num / 10000)万"
+     */
+    private func recalculate(num: Int) -> String {
+        if num > 0 && num < 1000 {
+            return "\(num)"
+        } else if num >= 1000 && num < 10000 {
+            return "\(num / 1000)k"
+        } else {
+            return "\(num / 10000)万"
+        }
+    }
+    
 }
 
 // MARK: - 设置布局
@@ -35,6 +66,7 @@ extension StatusCellBottomView {
         addSubview(retweetButton)
         addSubview(commentButton)
         addSubview(likeButton)
+        
         
         // 设置自动布局
         retweetButton.snp.makeConstraints { (make) in

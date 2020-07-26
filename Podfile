@@ -12,4 +12,6 @@ target 'Weibo' do
   pod 'SnapKit'
   pod 'Alamofire'
   pod 'FFLabel'
+  pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => '3.2.7'
+
 end

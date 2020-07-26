@@ -135,6 +135,10 @@ class VisitorView: UIView {
     private func appleNativeLayout() {
         
         for v in subviews {
+            /*
+             translatesAutoresizingMaskIntoConstraints 默认为 true，支持使用 setFrame 的方式设置控件位置
+             translatesAutoresizingMaskIntoConstraints 为 false，支持使用「自动布局」来设置控件位置
+             */
             v.translatesAutoresizingMaskIntoConstraints = false
         }
         

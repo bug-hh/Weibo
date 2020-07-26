@@ -61,7 +61,7 @@ extension MainViewController {
         let h = tabBar.bounds.height
         
         composedButton.frame = CGRect(x: 2 * w, y: 0, width: w, height: h)
-        composedButton.addTarget(self, action: #selector(self.composedButtonClicked), for: .touchUpInside)
+        composedButton.addTarget(self, action: #selector(composedButtonClicked), for: .touchUpInside)
         print(composedButton.frame)
     }
     

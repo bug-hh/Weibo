@@ -81,8 +81,8 @@ class StatusWeiboViewModel: NSObject {
         default:
             return nil
         }
-        
     }
+    
     init(status: Status) {
         self.status = status
         
