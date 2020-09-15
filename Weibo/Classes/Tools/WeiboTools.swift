@@ -16,7 +16,7 @@ class WeiboTools {
     }()
     
     func ssoLogin() {
-        let request = WBAuthorizeRequest()
+        let request = WBAuthorizeRequest.request() as! WBAuthorizeRequest
         request.redirectURI = "https://api.weibo.com/oauth2/default.html"
         request.scope = "all"
         WeiboSDK.send(request)

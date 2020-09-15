@@ -26,13 +26,13 @@ class StatusCellBottomView: UIView {
     var viewModel: StatusWeiboViewModel? {
         didSet {
             guard let vm = viewModel else {
-                print("为空")
+//                print("为空")
                 retweetButton.titleLabel?.text = "转发"
                 commentButton.titleLabel?.text = "评论"
                 likeButton.titleLabel?.text = "赞"
                 return
             }
-            print("点赞数: \(vm.status.attitudes_count)")
+//            print("点赞数: \(vm.status.attitudes_count)")
             retweetButton.titleLabel?.text = "\(self.recalculate(num: vm.status.reposts_count))"
             commentButton.titleLabel?.text = "\(self.recalculate(num:vm.status.comments_count))"
             likeButton.titleLabel?.text = "\(self.recalculate(num:vm.status.attitudes_count))"

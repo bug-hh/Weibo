@@ -50,10 +50,10 @@ class WeiboRefreshControl: UIRefreshControl {
         }
         
         if frame.origin.y < WeiBoRefreshControlOffset && !refreshView.rotateFlag {
-            print("反过来")
+//            print("反过来")
             refreshView.rotateFlag = true
         } else if frame.origin.y >= WeiBoRefreshControlOffset && refreshView.rotateFlag {
-            print("转过去")
+//            print("转过去")
             refreshView.rotateFlag = false
         }
     }

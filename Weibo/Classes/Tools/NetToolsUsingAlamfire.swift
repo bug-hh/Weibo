@@ -32,7 +32,7 @@ extension NetToolsUsingAlamfire {
         * parameter max_id   若指定此参数，则返回ID小于或等于max_id的微博，默认为0
         * parameter finish  回调函数
      */
-    func loadStatus(since_id: Int, max_id: Int, finish: @escaping HHRequestCallBack) {
+    func loadStatus(tag: Int, since_id: Int, max_id: Int, finish: @escaping HHRequestCallBack) {
         // 创建参数字典
         var parameters = [String: Any]()
         
@@ -44,10 +44,22 @@ extension NetToolsUsingAlamfire {
             // 减一，为了防止 等于 max_id 的微博重复
             parameters["max_id"] = max_id - 1
         }
-        let url = "https://api.weibo.com/2/statuses/home_timeline.json"
+        let url = getUrlWithTag(tag: tag)
         
         self.tokenRequest(method: .get, url: url, parameters: &parameters, finish: finish)
         
+    }
+    
+    private func getUrlWithTag(tag: Int) -> String {
+        var url = "https://api.weibo.com/2/statuses/home_timeline.json"
+        if tag == MENTIONED_STATUS {
+            url = "https://api.weibo.com/2/statuses/mentions.json"
+        } else if tag == COMMENT_STATUS {
+            url = "https://api.weibo.com/2/comments/by_me.json"
+        } else if tag == UPVOTE_STATUS {
+            url = "https://api.weibo.com/2/comments/to_me.json"
+        }
+        return url
     }
     
 }

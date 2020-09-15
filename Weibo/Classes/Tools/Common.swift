@@ -22,4 +22,10 @@ let WBStatusSelectedPhotoIndexPathKey = "WBStatusSelectedPhotoIndexPathKey"
 // 选中照片的 URL
 let WBStatusSelectedPhotoURLsKey = "WBStatusSelectedPhotoURLsKey"
 
+// tag, 区分是登录用户所有微博、@我的、评论我的、点赞我的
+let ALL_STATUS = 0
+let MENTIONED_STATUS = 1
+let COMMENT_STATUS = 2
+let UPVOTE_STATUS = 3
+
 

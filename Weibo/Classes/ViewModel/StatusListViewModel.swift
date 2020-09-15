@@ -10,23 +10,43 @@ import Foundation
 import SDWebImage
 
 class StatusListViewModel {
+    // 登录用户所有微博
     lazy var statusList = [StatusWeiboViewModel]()
+    // @我的
+    lazy var mentionedStatusList = [StatusWeiboViewModel]()
+    // 评论我的
+    lazy var commentStatusList = [StatusWeiboViewModel]()
+    // 点赞我的
+    lazy var upvoteStatusList = [StatusWeiboViewModel]()
     
     var pullDownCount: Int?
     
     /**
          加载微博数据
+       * parameter tag 区分
+            「获取所有微博」   0
+            「@我的」              1
+            「评论我的」          2
+            「点赞我的」          3
        * parameter isPullup   是否上拉刷新
        * parameter finish  回调函数
     */
-    func loadStatus(isPullup: Bool, finish: @escaping (_ isSuccessed: Bool) -> ()) {
+    func loadStatus(tag: Int, isPullup: Bool, finish: @escaping (_ isSuccessed: Bool) -> ()) {
+        var dataList = statusList
+        if tag == 1 {
+            dataList = mentionedStatusList
+        } else if tag == 2 {
+            dataList = commentStatusList
+        } else {
+            dataList = upvoteStatusList
+        }
         
         // 微博最上面的 内容是最新的，也就是返回的第一条微博是最新的
-        let since_id = isPullup ? 0 : (statusList.first?.status.id ?? 0)
-        let max_id = isPullup ? (statusList.last?.status.id ?? 0) : 0
+        let since_id = isPullup ? 0 : (dataList.first?.status.id ?? 0)
+        let max_id = isPullup ? (dataList.last?.status.id ?? 0) : 0
         
         // 检查本队是否存在数据库缓存
-        StatusDAL.loadStatus(since_id: since_id, max_id: max_id) { (arr) in
+        StatusDAL.loadStatus(tag: tag, since_id: since_id, max_id: max_id) { (arr) in
             guard let array = arr else {
                 finish(false)
                 return
@@ -43,9 +63,19 @@ class StatusListViewModel {
             
             // 如果是下拉刷新，那么将最新的数据拼接在最前面
             if since_id > 0 {
-                self.statusList = arrayList + self.statusList
+                dataList = arrayList + dataList
             } else { // 如果是上拉刷新，那么把之前的数据放在后面
-                self.statusList += arrayList
+                dataList += arrayList
+            }
+            
+            if tag == 0 {
+                self.statusList = dataList
+            } else if tag == 1 {
+                self.mentionedStatusList = dataList
+            } else if tag == 2 {
+                self.commentStatusList = dataList
+            } else {
+                self.upvoteStatusList = dataList
             }
             
             finish(true)
@@ -66,7 +96,7 @@ class StatusListViewModel {
             }
             
             let url = vm.thumbnailUrls![0]
-            print("开始缓存图片 \(url)")
+//            print("开始缓存图片 \(url)")
             // 入组，监听后续的闭包
             group.enter()
             

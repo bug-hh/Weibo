@@ -112,7 +112,7 @@ private class NewFeatureCell: UICollectionViewCell {
     }
     
     @objc func startButtonClicked() {
-        print("立即体验")
+//        print("立即体验")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBSwitchRootViewControllerNotification),
         object: nil) // 这个 object 和 AppDelegate 设置监听里的 object 不一样
     }

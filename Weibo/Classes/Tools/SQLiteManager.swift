@@ -61,4 +61,19 @@ class SQLiteManager {
         }
         return ret
     }
+    
+    func isTableExist(tableName: String) -> Bool {
+        let sql = "select count(*) FROM sqlite_master WHERE type=\"table\" AND name = \"\(tableName)\""
+        var ret = false
+        SQLiteManager.sharedManager.queue.inDatabase { (db) in
+            guard let res = db.executeQuery(sql, withArgumentsIn: []) else {
+                ret = false
+                return
+            }
+            if res.next() {
+                ret = res.int(forColumnIndex: 0) > 0
+            }
+        }
+        return ret
+    }
 }

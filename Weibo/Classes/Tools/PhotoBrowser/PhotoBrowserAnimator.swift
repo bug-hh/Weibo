@@ -87,13 +87,13 @@ extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
 //        transitionContext.containerView.addSubview(v)
         let fromVC = transitionContext.viewController(forKey: .from)
         let toVC = transitionContext.viewController(forKey: .to)
-        print(fromVC)
-        print(toVC)
+//        print(fromVC)
+//        print(toVC)
         
         let fromView = transitionContext.view(forKey: .from)
         let toView = transitionContext.view(forKey: .to)
-        print(fromView)
-        print(toView)
+//        print(fromView)
+//        print(toView)
         
         isPresented ? presentAnimation(transitionContext: transitionContext) : dismissAnimation(transitionContext: transitionContext)
     }

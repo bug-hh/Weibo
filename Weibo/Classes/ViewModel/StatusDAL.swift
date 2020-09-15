@@ -22,22 +22,25 @@ class StatusDAL {
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let dateStr = df.string(from: date)
-        print(dateStr)
+//        print(dateStr)
         
-        //执行 sql
-        let sql = "DELETE FROM T_Status WHERE createTime < ?;"
-        
-        SQLiteManager.sharedManager.queue.inTransaction { (db, rollback) in
-            if db.executeUpdate(sql, withArgumentsIn: [dateStr]) {
-                print("删除了 \(db.changes) 条缓存数据")
+        let tableNameList = ["T_Status", "T_Mentioned", "T_Comment", "T_Upvote"]
+        for tableName in tableNameList {
+            //执行 sql
+            let sql = "DELETE FROM \(tableName) WHERE createTime < ?;"
+            
+            SQLiteManager.sharedManager.queue.inTransaction { (db, rollback) in
+                if db.executeUpdate(sql, withArgumentsIn: [dateStr]) {
+//                    print("删除了 \(db.changes) 条缓存数据")
+                }
             }
         }
     }
     // TODO: 解决重复微博的问题，实现「转发」、评论、点赞功能
     
-    class func loadStatus(since_id: Int, max_id: Int, finish: @escaping ([[String: Any]]?) -> ()) {
+    class func loadStatus(tag: Int, since_id: Int, max_id: Int, finish: @escaping ([[String: Any]]?) -> ()) {
         // 1、检查本地是否有缓存
-        let arr = checkCacheData(since_id: since_id, max_id: max_id)
+        let arr = checkCacheData(tag: tag, since_id: since_id, max_id: max_id)
         
         // 2、如果有，则返回缓存数据
         if arr?.count ?? 0 > 0 {
@@ -46,8 +49,9 @@ class StatusDAL {
             return
         }
         
+        print("没有找到本地缓存，尝试从网络加载")
         // 3、如果没有，加载网络数据
-        NetToolsUsingAlamfire.sharedTools.loadStatus(since_id: since_id, max_id: max_id) { (result, error) in
+        NetToolsUsingAlamfire.sharedTools.loadStatus(tag: tag, since_id: since_id, max_id: max_id) { (result, error) in
             if error != nil {
                 finish(nil)
                 return
@@ -59,7 +63,7 @@ class StatusDAL {
                 return
             }
             // 4、将网络返回的数据，保存在本地数据库，以便后续使用
-            StatusDAL.saveCacheData(arr: array)
+            StatusDAL.saveCacheData(tag: tag, arr: array)
             
             // 5、返回网络数据
             finish(array)
@@ -67,7 +71,7 @@ class StatusDAL {
     }
     
     // 检查本地是否有数据库缓存数据
-    private class func checkCacheData(since_id: Int, max_id: Int) -> [[String: Any]]? {
+    private class func checkCacheData(tag: Int, since_id: Int, max_id: Int) -> [[String: Any]]? {
         print("检查本地数据 \(since_id)  \(max_id)")
         
         guard let userId = UserAccountViewModel.sharedViewModel.userAccount?.uid else {
@@ -75,8 +79,14 @@ class StatusDAL {
             return nil
         }
         
+        let tableName = getTableName(tag: tag)
+        if !SQLiteManager.sharedManager.isTableExist(tableName: tableName) {
+            print("表 \(tableName) 不存在")
+            return nil
+        }
+        
         var sql = "SELECT statusId, status, userId \n"
-        sql += "FROM T_Status \n"
+        sql += "FROM \(tableName) \n"
         sql += "WHERE userId = \(userId) \n"
         if since_id > 0 { // 下拉刷新
             sql += "AND statusId > \(since_id) \n"
@@ -99,14 +109,16 @@ class StatusDAL {
     }
     
     // 将网络返回的数据，保存在本地数据库
-    private class func saveCacheData(arr: [[String: Any?]]) {
+    private class func saveCacheData(tag: Int, arr: [[String: Any?]]) {
         guard let userId = UserAccountViewModel.sharedViewModel.userAccount?.uid else {
             print("用户未登录")
             return
         }
         
+        let tableName = getTableName(tag: tag)
+        
         // 准备 sql
-        let sql = "INSERT OR replace INTO T_Status (statusId, status, userId) VALUES (?, ?, ?);"
+        let sql = "INSERT OR replace INTO \(tableName) (statusId, status, userId) VALUES (?, ?, ?);"
         
         SQLiteManager.sharedManager.queue.inTransaction { (db, rollBack) in
             for dict in arr {
@@ -126,5 +138,17 @@ class StatusDAL {
             }
         }
         print("数据插入完成")
+    }
+    
+    private class func getTableName(tag: Int) -> String {
+        var tableName = "T_Status"
+        if tag == MENTIONED_STATUS {
+            tableName = "T_Mentioned"
+        } else if tag == COMMENT_STATUS {
+            tableName = "T_Comment"
+        } else if tag == UPVOTE_STATUS {
+            tableName = "T_Upvote"
+        }
+        return tableName
     }
 }

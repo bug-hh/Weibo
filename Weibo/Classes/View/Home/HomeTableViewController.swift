@@ -13,20 +13,28 @@ let StatusCellNormalID = "StatusCellNormalID"
 let StatusRetweetedCellID = "StatusRetweetedCellID"
 
 class HomeTableViewController: VisitorTableViewController {
+    /*
+     tag 用来标识：
+     0、登录用户所有微博
+     1、@我的微博
+     2、评论我的微博
+     3、点赞我的微博
+     */
+    var tag = 0
 
     // 照片查看转场动画代理
-    private lazy var photoBrowserAnimator: PhotoBrowserAnimator = PhotoBrowserAnimator()
+    lazy var photoBrowserAnimator: PhotoBrowserAnimator = PhotoBrowserAnimator()
     
-    private lazy var listViewModel: StatusListViewModel = StatusListViewModel()
+    lazy var listViewModel: StatusListViewModel = StatusListViewModel()
     
-    private lazy var pullUpView: UIActivityIndicatorView = {
+    lazy var pullUpView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .white)
         indicator.color = .lightGray
         return indicator
     }()
     
     // 懒加载下拉刷新提示控件
-    private lazy var pullDownTipLabel: UILabel = {
+    lazy var pullDownTipLabel: UILabel = {
         let label = UILabel(text: "", fontSize: 18, textColor: .white)
         label.backgroundColor = .orange
         
@@ -34,7 +42,12 @@ class HomeTableViewController: VisitorTableViewController {
         return label
     }()
     
-    private var dataList: [Status]?
+    var dataList: [Status]?
+    
+    convenience init(tag: Int = 0) {
+        self.init()
+        self.tag = tag
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,16 +55,15 @@ class HomeTableViewController: VisitorTableViewController {
             visitView?.setUpInfo(imageName: nil, text: "关注一些人，回这里看看有什么惊喜")
             return
         }
-        
         prepareTableView()
         loadData()
-        
+        print("loadData end")
         // 注册通知, 如果使用通知中心的 block 监听，其中的 self 一定要弱引用
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: WBStatusSelectedPhotoNotification),
                                                object: nil,  // 发送通知的对象，如果为 nil，则监听所有对象
                                                queue: nil)   // 如果为 nil，那么 queue 就用 主线程
         { [weak self] (notification) in
-            print("接收通知 \(notification)")
+//            print("接收通知 \(notification)")
             guard let indexPath = notification.userInfo?[NSNotification.Name(rawValue: WBStatusSelectedPhotoIndexPathKey)] else {
                 return
             }
@@ -83,7 +95,7 @@ class HomeTableViewController: VisitorTableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func prepareTableView() {
+    func prepareTableView() {
         // 注册可重用 cell
         tableView.register(StatusRetweetedCell.self, forCellReuseIdentifier: StatusRetweetedCellID)
         tableView.register(StatusNormalCell.self, forCellReuseIdentifier: StatusCellNormalID)
@@ -103,9 +115,10 @@ class HomeTableViewController: VisitorTableViewController {
         tableView.tableFooterView = pullUpView
     }
     
-    @objc private func loadData() {
+    @objc func loadData() {
+        print("loadData begin")
         refreshControl?.beginRefreshing()
-        listViewModel.loadStatus(isPullup: pullUpView.isAnimating) { (isSuccessed) in
+        listViewModel.loadStatus(tag: self.tag, isPullup: pullUpView.isAnimating) { (isSuccessed) in
             // 关闭刷新控件
             self.refreshControl?.endRefreshing()
             // 关闭上拉刷新
@@ -125,7 +138,7 @@ class HomeTableViewController: VisitorTableViewController {
     }
     
     // 显示下拉刷新提示
-    private func showPullDownTip() {
+    func showPullDownTip() {
         // 如果不是下拉刷新，则直接返回
         guard let count = listViewModel.pullDownCount else {
             return
@@ -153,15 +166,49 @@ class HomeTableViewController: VisitorTableViewController {
 // MARK: - 数据源方法
 extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listViewModel.statusList.count
+        if self.tag == ALL_STATUS {
+            return listViewModel.statusList.count
+        }
+        
+        if self.tag == MENTIONED_STATUS {
+            return listViewModel.mentionedStatusList.count
+        }
+        
+        if self.tag == COMMENT_STATUS {
+            return listViewModel.commentStatusList.count
+        }
+        
+        if self.tag == UPVOTE_STATUS {
+            return listViewModel.upvoteStatusList.count
+        }
+        return 0;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let vm = listViewModel.statusList[indexPath.row]
+        var tempList:[StatusWeiboViewModel]? = nil
+        var tempVM: StatusWeiboViewModel? = nil
+        if self.tag == MENTIONED_STATUS {
+            tempVM = listViewModel.mentionedStatusList[indexPath.row]
+            tempList = listViewModel.mentionedStatusList
+        } else if self.tag == COMMENT_STATUS {
+            tempVM = listViewModel.commentStatusList[indexPath.row]
+            tempList = listViewModel.commentStatusList
+        } else if self.tag == UPVOTE_STATUS {
+            tempVM = listViewModel.upvoteStatusList[indexPath.row]
+            tempList = listViewModel.upvoteStatusList
+        } else if self.tag == ALL_STATUS {
+            tempVM = listViewModel.statusList[indexPath.row]
+            tempList = listViewModel.statusList
+        }
+        
+        guard let vm = tempVM, let TL = tempList else {
+            return UITableViewCell()
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         cell.viewModel = vm
         // 判断是否是最后一条微博
-        if indexPath.row == listViewModel.statusList.count - 1 && !pullUpView.isAnimating {
+        if indexPath.row == TL.count - 1 && !pullUpView.isAnimating {
             // 开始上拉刷新动画
             pullUpView.startAnimating()
             loadData()
@@ -171,7 +218,23 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return listViewModel.statusList[indexPath.row].rowHeight
+        if self.tag == ALL_STATUS {
+            return listViewModel.statusList[indexPath.row].rowHeight
+        }
+        
+        if self.tag == MENTIONED_STATUS {
+            return listViewModel.mentionedStatusList[indexPath.row].rowHeight
+        }
+        
+        if self.tag == COMMENT_STATUS {
+            return listViewModel.commentStatusList[indexPath.row].rowHeight
+        }
+        
+        if self.tag == UPVOTE_STATUS {
+            return listViewModel.upvoteStatusList[indexPath.row].rowHeight
+        }
+        
+        return 0
     }
 }
 
