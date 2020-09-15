@@ -207,8 +207,11 @@ extension HomeTableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         cell.viewModel = vm
-        // 判断是否是最后一条微博
-        if indexPath.row == TL.count - 1 && !pullUpView.isAnimating {
+        if self.tag == MENTIONED_STATUS {
+            print(vm.status)
+        }
+        // 判断是否是最后一条微博 同时这个 tag 是首页微博，不是 message
+        if indexPath.row == TL.count - 1 && !pullUpView.isAnimating && self.tag == ALL_STATUS {
             // 开始上拉刷新动画
             pullUpView.startAnimating()
             loadData()

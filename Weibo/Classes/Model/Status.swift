@@ -26,6 +26,15 @@ class Status: NSObject {
     // 用户模型
     @objc var user: User?
     
+    // 缩略图地址
+    @objc var thumbnail_pic: String?
+    
+    // 中等尺寸图片地址
+    @objc var bmiddle_pic: String?
+    
+    // 原始图片地址
+    @objc var original_pic: String?
+    
     @objc var pic_urls:[[String: String]]?
     
     // 被转发的原微博信息字段
@@ -66,7 +75,7 @@ class Status: NSObject {
     }
     
     override var description: String {
-        let keys = ["id", "text", "created_at", "source", "user", "pic_urls", "retweeted_status", "comments_count", "reposts_count", "attitudes_count"]
+        let keys = ["id", "text", "created_at", "source", "user", "thumbnail_pic", "bmiddle_pic", "original_pic", "pic_urls", "retweeted_status", "comments_count", "reposts_count", "attitudes_count"]
         
         return dictionaryWithValues(forKeys: keys).description
     }

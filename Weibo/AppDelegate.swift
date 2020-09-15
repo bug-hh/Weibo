@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // 清除数据库缓存
+        print("App 进入后台，清理缓存数据")
         StatusDAL.clearDataCache()
     }
     
@@ -42,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
             let vc = notification.object != nil ? WelcomeViewController() : MainViewController()
             self?.window?.rootViewController = vc
         }
-        SQLiteManager.sharedManager
+        
         return true
     }
 

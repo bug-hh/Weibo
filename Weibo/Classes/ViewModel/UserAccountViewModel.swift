@@ -73,7 +73,10 @@ class UserAccountViewModel {
     }
     
     func loadUserInfo(userAccount: UserAccount, finish: @escaping (_ isSuccessed: Bool) -> ()) {
-        NetToolsUsingAlamfire.sharedTools.loadUserInfo(uid: userAccount.uid!) { (result, error) in
+        guard let uid = userAccount.uid else {
+            return
+        }
+        NetToolsUsingAlamfire.sharedTools.loadUserInfo(uid: uid) { (result, error) in
             if error != nil {
                 finish(false)
                 return

@@ -92,6 +92,19 @@ class StatusWeiboViewModel: NSObject {
                 thumbnailUrls?.append(NSURL(string: dict["thumbnail_pic"]!)!)
             }
         }
+        
+//        if let t = status.thumbnail_pic {
+//            thumbnailUrls?.append(NSURL(string: t)!)
+//        }
+        
+        if let bm = status.bmiddle_pic {
+            thumbnailUrls?.append(NSURL(string: bm)!)
+        }
+//
+//        if let or = status.original_pic {
+//            thumbnailUrls?.append(NSURL(string: or)!)
+//        }
+        
     }
     
     override var description: String {
